@@ -40,7 +40,6 @@ namespace Script_Principal
                 }
             }
         }
-
         public string Estado
         {
             get { return estado; }
@@ -56,7 +55,6 @@ namespace Script_Principal
                 }
             }
         }
-
         public double CapacidadCarga
         {
             get { return capacidadCarga; }
@@ -72,19 +70,16 @@ namespace Script_Principal
                 }
             }
         }
-
         public string Modelo
         {
             get { return modelo; }
             set { modelo = value; }
         }
-
         public string Marca
         {
             get { return marca; }
             set { marca = value; }
         }
-
         public string Placa
         {
             get { return placa; }
@@ -100,7 +95,6 @@ namespace Script_Principal
                 }
             }
         }
-
         public string Codigo
         {
             get { return codigo; }
@@ -110,8 +104,11 @@ namespace Script_Principal
                 {
                     codigo = value;
                 }
+                else
+                {
+                    Console.WriteLine("Codigo inválido");
+                }
             }
         }
-
     }
 }

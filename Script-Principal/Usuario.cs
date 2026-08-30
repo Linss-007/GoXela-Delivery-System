@@ -26,9 +26,12 @@ namespace Script_Principal
                 {
                     codigo = value;
                 }
+                else
+                {
+                    Console.WriteLine("Codigo inválido");
+                }
             }
         }
-
         public string Numero
         {
             get { return numero; }
@@ -38,9 +41,12 @@ namespace Script_Principal
                 {
                     numero = value;
                 }
+                else
+                {
+                    Console.WriteLine("El numero es inválido");
+                }
             }
         }
-
         public string Nombre
         {
             get { return nombre; }
@@ -50,8 +56,11 @@ namespace Script_Principal
                 {
                     nombre = value;
                 }
+                else
+                {
+                    Console.WriteLine("EL nombre esta fuera del rango disponible");
+                }
             }
         }
-
     }
 }
