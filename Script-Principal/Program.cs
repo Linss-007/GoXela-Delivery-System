@@ -10,18 +10,25 @@ namespace Script_Principal
     {
         static void Menu()
         {
-            Console.WriteLine("========================================");
-            Console.WriteLine("=======Bienvenido GoXela Delivery=======");
-            Console.WriteLine("========================================\n");
-            Console.WriteLine("1. Gestión de clientes");
-            Console.WriteLine("2. Gestión de repartidores");
-            Console.WriteLine("3. Gestión de vehículos");
-            Console.WriteLine("4. Gestión de paquetes");
-            Console.WriteLine("5. Gestión de entregas");
-            Console.WriteLine("6. Gestión de incidencias");
-            Console.WriteLine("7. Reportes");
-            Console.WriteLine("8. Salir");
-            Console.WriteLine("Ingrese el indice de la acción que desea realizar");
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("+==================================================+");
+            Console.WriteLine("|            Bienvenido GoXela Delivery            |");
+            Console.WriteLine("+==================================================+");
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("+==================================================+");
+            Console.WriteLine("|  [1]  Gestión de clientes                        |");
+            Console.WriteLine("|  [2]  Gestión de repartidores                    |");
+            Console.WriteLine("|  [3]  Gestión de vehículos                       |");
+            Console.WriteLine("|  [4]  Gestión de paquetes                        |");
+            Console.WriteLine("|  [5]  Gestión de entregas                        |");
+            Console.WriteLine("|  [6]  Gestión de incidencias                     |");
+            Console.WriteLine("|  [7]  Reportes                                   |");
+            Console.WriteLine("|  [8]  Salir                                      |");
+            Console.WriteLine("+==================================================+");
+            Console.WriteLine();
+            Console.ForegroundColor= ConsoleColor.White;
+            Console.Write("Ingrese el índice de la acción que desea realizar: ");
         }
         static void Main(string[] args)
         {
@@ -30,39 +37,63 @@ namespace Script_Principal
             {
                 Console.Clear();
                 Menu();
-            MalOpcion:
                 if (!int.TryParse(Console.ReadLine(), out opcion))
                 {
-                    Console.WriteLine("La opción ingresada no existe, intente de nuevo");
-                    goto MalOpcion;
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine();
+                    Console.Write("Error: Tipo de dato incorrecto, por favor ingrese un número entero.");
+                    Console.ReadLine();
+                    continue;
                 }
 
                 switch(opcion)
                 {
                     case 1:
+                        Console.Clear();
+
+                        Console.ReadLine();
                         break;
                     case 2:
+                        Console.Clear();
+
+                        Console.ReadLine();
                         break;
                     case 3:
+                        Console.Clear();
+
+                        Console.ReadLine();
                         break;
                     case 4:
+                        Console.Clear();
+
+                        Console.ReadLine();
                         break;
                     case 5:
+                        Console.Clear();
+
+                        Console.ReadLine();
                         break;
                     case 6:
+                        Console.Clear();
+
+                        Console.ReadLine();
                         break;
                     case 7:
+                        Console.Clear();
+
+                        Console.ReadLine();
                         break;
                     case 8:
-                        Console.WriteLine("Gracias por usar nuestro programa, vuelta pronto");
+                        Console.WriteLine("¡Gracias por usar nuestro programa, vuelta pronto!"); return;
                         break;
                     default:
-                        Console.WriteLine("La opción elegida no existe, intente de nuevo");
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("\nError: Opción inválida, intente de nuevo.");
+                        Console.Write("Presione ENTER para continuar...");
+                        Console.ReadLine();
                         break;
                 }
             } while (opcion != 8);
-            
-
         }
     }
 }
