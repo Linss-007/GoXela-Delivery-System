@@ -10,17 +10,23 @@ namespace Script_Principal
     {
         private string nombre;
         private string numero;
-        private int codigo;
-        public Usuario(int codigoIng, string nombreIng, string numeroIng)
+        private string codigo;
+        public Usuario(string codigoIng, string nombreIng, string numeroIng)
         {
             Codigo = codigoIng;
             Nombre = nombreIng;
             Numero = numeroIng;
         }
-        public int Codigo
+        public string Codigo
         {
             get { return codigo; }
-            set { codigo = value; }
+            set
+            {
+                if (value.Length <= 10)
+                {
+                    codigo = value;
+                }
+            }
         }
 
         public string Numero
