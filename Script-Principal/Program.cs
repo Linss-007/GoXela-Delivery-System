@@ -50,40 +50,62 @@ namespace Script_Principal
                 {
                     case 1:
                         Console.Clear();
-
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("+===========================================+");
+                        Console.WriteLine("|            Gestión de Clientes            |");
+                        Console.WriteLine("+===========================================+");
                         Console.ReadLine();
                         break;
                     case 2:
                         Console.Clear();
-
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("+===============================================+");
+                        Console.WriteLine("|            Gestión de Repartidores            |");
+                        Console.WriteLine("+===============================================+");
                         Console.ReadLine();
                         break;
                     case 3:
                         Console.Clear();
-
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("+===========================================+");
+                        Console.WriteLine("|            Gestión de Vehículos           |");
+                        Console.WriteLine("+===========================================+");
                         Console.ReadLine();
                         break;
                     case 4:
                         Console.Clear();
-
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("+===========================================+");
+                        Console.WriteLine("|            Gestión de Paquetes            |");
+                        Console.WriteLine("+===========================================+");
                         Console.ReadLine();
                         break;
                     case 5:
                         Console.Clear();
-
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("+===========================================+");
+                        Console.WriteLine("|            Gestión de Entregas            |");
+                        Console.WriteLine("+===========================================+");
                         Console.ReadLine();
                         break;
                     case 6:
                         Console.Clear();
-
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("+==============================================+");
+                        Console.WriteLine("|            Gestión de Incidencias            |");
+                        Console.WriteLine("+==============================================+");
                         Console.ReadLine();
                         break;
                     case 7:
                         Console.Clear();
-
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("+================================+");
+                        Console.WriteLine("|            Reportes            |");
+                        Console.WriteLine("+================================+");
                         Console.ReadLine();
                         break;
                     case 8:
+                        Console.Clear();
                         Console.WriteLine("¡Gracias por usar nuestro programa, vuelta pronto!"); return;
                         break;
                     default:
