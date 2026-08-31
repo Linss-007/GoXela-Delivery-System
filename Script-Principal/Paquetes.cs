@@ -36,7 +36,9 @@ namespace Script_Principal
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El estado no existe.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
@@ -52,11 +54,15 @@ namespace Script_Principal
                 }
                 else if (string.IsNullOrWhiteSpace(value))
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: La dirección de destino no puede ir vacío.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: Dirección de destino inválida.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
@@ -72,11 +78,15 @@ namespace Script_Principal
                 }
                 else if (string.IsNullOrWhiteSpace(value))
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: La dirección de origen no puede ir vacía.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: La dirección de origen inválida.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
@@ -91,7 +101,9 @@ namespace Script_Principal
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El valor esta fuera de rango.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
@@ -106,7 +118,9 @@ namespace Script_Principal
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El peso esta fuera de rango.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
@@ -121,7 +135,9 @@ namespace Script_Principal
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: La descripción no puede estar vacía.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
@@ -136,7 +152,9 @@ namespace Script_Principal
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: Código inválido.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }

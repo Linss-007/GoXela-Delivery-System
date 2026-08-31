@@ -27,6 +27,7 @@ namespace Script_Principal
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: Capacidad límite fuera de rango.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }

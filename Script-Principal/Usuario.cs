@@ -30,11 +30,13 @@ namespace Script_Principal
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El código no puede ir vacío.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else 
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: Código inválido.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
@@ -51,6 +53,7 @@ namespace Script_Principal
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El número de teléfono debe tener 8 dígitos.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
@@ -67,11 +70,13 @@ namespace Script_Principal
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El nombre no puede ir vacío.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El nombre esta fuera del rango establecido.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
@@ -97,12 +102,14 @@ namespace Script_Principal
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: El nombre no puede ir vacío.");
+                        Console.ForegroundColor = ConsoleColor.White;
                         goto MalNombreNuevo;
                     }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: El nombre esta fuera del rango establecido.");
+                        Console.ForegroundColor = ConsoleColor.White;
                         goto MalNombreNuevo;
                     }
                     break;
@@ -118,12 +125,14 @@ namespace Script_Principal
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: El número de teléfono debe tener 8 dígitos.");
+                        Console.ForegroundColor = ConsoleColor.White;
                         goto MalNumeroNuevo;
                     }
                     break;
                 default:
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: La opción ingresada no existe, intente de nuevo");
+                    Console.ForegroundColor = ConsoleColor.White;
                     break;
             }
         }

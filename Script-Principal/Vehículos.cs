@@ -36,7 +36,9 @@ namespace Script_Principal
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: Costo operativo fuera de rango.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
@@ -56,7 +58,9 @@ namespace Script_Principal
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: Capacidad de carga fuera de rango.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
@@ -70,7 +74,9 @@ namespace Script_Principal
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El modelo no puede estar vacío.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
@@ -84,7 +90,9 @@ namespace Script_Principal
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: La marca no puede estar vacía.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
@@ -99,11 +107,15 @@ namespace Script_Principal
                 }
                 else if (string.IsNullOrWhiteSpace(value))
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: La placa no puede ir vacía.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: La placa ingresada no es válida.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
@@ -118,11 +130,15 @@ namespace Script_Principal
                 }
                 else if(string.IsNullOrWhiteSpace(value))
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El código no puede ir vacío.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: Codigo inválido.");
+                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
         }
