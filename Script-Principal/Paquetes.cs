@@ -15,7 +15,7 @@ namespace Script_Principal
         private string direccionOrigen;
         private string direccionDestino;
         private EstadoPaquete estado;
-        public Paquetes(string codigoIng, string descripIng, double pesoIng, double valorIng, string direcOrigenIng, string direcDestinoIng, string estadoIng)
+        public Paquetes(string codigoIng, string descripIng, double pesoIng, double valorIng, string direcOrigenIng, string direcDestinoIng)
         {
             Codigo = codigoIng;
             Descripcion = descripIng;
@@ -144,6 +144,20 @@ namespace Script_Principal
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
+        }
+        public virtual void MostrarInfomacion()
+        {
+            Console.WriteLine($"| Código: {Codigo}.");
+            Console.WriteLine($"| Descripción: {Descripcion}.");
+            Console.WriteLine($"| Peso del paquete: {PesoPaquete} kg.");
+            Console.WriteLine($"| Valor declarado: {ValorDeclarado}.");
+            Console.WriteLine($"| Dirección de Origen: {DireccionOrigen}.");
+            Console.WriteLine($"| Dirección de Destino: {DireccionDestino}.");
+
+        }
+        public virtual double CalcularTarifa(double distancia)
+        {
+            return ValorDeclarado + (distancia * 10) + (PesoPaquete*15); 
         }
     }
 }
