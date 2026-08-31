@@ -6,16 +6,16 @@ using System.Threading.Tasks;
 
 namespace Script_Principal
 {
-    class Vehículos
+    abstract class Vehículos
     {
         private string codigo;
         private string placa;
         private string marca;
         private string modelo;
         private double capacidadCarga;
-        private string estado;
+        private EstadoVehiculo estado;
         private double costoOperativo;
-        public Vehículos(string codigoIng, string placaIng, string marcaIng, string modeloIng, double capacidadIng, string estadoIng, double CostoOpIng)
+        public Vehículos(string codigoIng, string placaIng, string marcaIng, string modeloIng, double capacidadIng, EstadoVehiculo estadoIng, double CostoOpIng)
         {
             Codigo = codigoIng;
             Placa = placaIng;
@@ -36,24 +36,14 @@ namespace Script_Principal
                 }
                 else
                 {
-                    Console.WriteLine("Costo operativo fuera de rango");
+                    Console.WriteLine("Error: Costo operativo fuera de rango.");
                 }
             }
         }
-        public string Estado
+        public EstadoVehiculo Estado
         {
             get { return estado; }
-            set
-            {
-                if (value == "disponible" || value == "asignado" || value == "mantenimiento")
-                {
-                    estado = value;
-                }
-                else
-                {
-                    Console.WriteLine("El estado no existe");
-                }
-            }
+            set { estado = value; }
         }
         public double CapacidadCarga
         {
@@ -66,7 +56,7 @@ namespace Script_Principal
                 }
                 else
                 {
-                    Console.WriteLine("Capacidad de carga fuera de rango");
+                    Console.WriteLine("Error: Capacidad de carga fuera de rango.");
                 }
             }
         }
@@ -85,13 +75,13 @@ namespace Script_Principal
             get { return placa; }
             set
             {
-                if (value.Length == 7)
+                if (!string.IsNullOrWhiteSpace(value) && value.Length == 7)
                 {
                     placa = value;
                 }
                 else
                 {
-                    Console.WriteLine("La placa ingresada no es válida");
+                    Console.WriteLine("Error: La placa ingresada no es válida.");
                 }
             }
         }
@@ -100,15 +90,26 @@ namespace Script_Principal
             get { return codigo; }
             set
             {
-                if (value.Length <= 10)
+                if (!string.IsNullOrWhiteSpace(value) && value.Length <= 10)
                 {
                     codigo = value;
                 }
                 else
                 {
-                    Console.WriteLine("Codigo inválido");
+                    Console.WriteLine("Error: Codigo inválido.");
                 }
             }
+        }
+        public abstract bool PuedeTransportar(Paquetes paquete);
+        public abstract double CalcularCostoOperativo();
+        public virtual void MostrarInformacion()
+        {
+            Console.WriteLine($"| Código: {Codigo}");
+            Console.WriteLine($"| Placa: {Placa}");
+            Console.WriteLine($"| Marca: {Marca}");
+            Console.WriteLine($"| Modelo: {Modelo}");
+            Console.WriteLine($"| Capacidad: {CapacidadCarga} kg");
+            Console.WriteLine($"| Estado: {Estado}");
         }
     }
 }

@@ -43,7 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Automovil.cs" />
+    <Compile Include="Bicicleta.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Motocicleta.cs" />
     <Compile Include="Paquetes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
