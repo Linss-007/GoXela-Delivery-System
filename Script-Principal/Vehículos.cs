@@ -70,7 +70,7 @@ namespace Script_Principal
                 }
                 else
                 {
-                    Console.WriteLine("Error: Por favor, ingrese un modelo correcto.");
+                    Console.WriteLine("Error: El modelo no puede estar vacío.");
                 }
             }
         }
@@ -84,7 +84,7 @@ namespace Script_Principal
                 }
                 else
                 {
-                    Console.WriteLine("Error: Por favor, ingrese una marcar correcta.");
+                    Console.WriteLine("Error: La marca no puede estar vacía.");
                 }
             }
         }
@@ -96,6 +96,10 @@ namespace Script_Principal
                 if (!string.IsNullOrWhiteSpace(value) && value.Length == 7)
                 {
                     placa = value;
+                }
+                else if (string.IsNullOrWhiteSpace(value))
+                {
+                    Console.WriteLine("Error: La placa no puede ir vacía.");
                 }
                 else
                 {
@@ -111,6 +115,10 @@ namespace Script_Principal
                 if (!string.IsNullOrWhiteSpace(value) && value.Length <= 10)
                 {
                     codigo = value;
+                }
+                else if(string.IsNullOrWhiteSpace(value))
+                {
+                    Console.WriteLine("Error: El código no puede ir vacío.");
                 }
                 else
                 {
