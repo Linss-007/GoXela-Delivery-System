@@ -50,6 +50,10 @@ namespace Script_Principal
                 {
                     direccionDestino = value;
                 }
+                else if (string.IsNullOrWhiteSpace(value))
+                {
+                    Console.WriteLine("Error: La dirección de destino no puede ir vacío.");
+                }
                 else
                 {
                     Console.WriteLine("Error: Dirección de destino inválida.");
@@ -66,9 +70,13 @@ namespace Script_Principal
                 {
                     direccionOrigen = value;
                 }
+                else if (string.IsNullOrWhiteSpace(value))
+                {
+                    Console.WriteLine("Error: La dirección de origen no puede ir vacía.");
+                }
                 else
                 {
-                    Console.WriteLine("Error: Dirección de Origen inválida.");
+                    Console.WriteLine("Error: La dirección de origen inválida.");
                 }
             }
         }
