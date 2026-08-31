@@ -14,7 +14,7 @@ namespace Script_Principal
         private double valorDeclarado;
         private string direccionOrigen;
         private string direccionDestino;
-        private string estado;
+        private EstadoPaquete estado;
         public Paquetes(string codigoIng, string descripIng, double pesoIng, double valorIng, string direcOrigenIng, string direcDestinoIng, string estadoIng)
         {
             Codigo = codigoIng;
@@ -23,24 +23,11 @@ namespace Script_Principal
             ValorDeclarado = valorIng;
             DireccionOrigen = direcOrigenIng;
             DireccionDestino = direcDestinoIng;
-            Estado = estadoIng;
         }
-        public string Estado
+        public EstadoPaquete Estado
         {
             get { return estado; }
-            set
-            {
-                if (value == "recibido" || value == "empacado" || value == "enviado" || value == "entregado")
-                {
-                    estado = value;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: El estado no existe.");
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-            }
+            set { estado = value; }
         }
 
         public string DireccionDestino
