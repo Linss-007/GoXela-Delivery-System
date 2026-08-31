@@ -26,8 +26,11 @@ namespace Script_Principal
                 {
                     codigo = value;
                 }
-                else
+                else if(string.IsNullOrWhiteSpace(value))
                 {
+                    Console.WriteLine("Error: El código no puede ir vacío.");
+                }
+                else {
                     Console.WriteLine("Error: Código inválido.");
                 }
             }
@@ -56,9 +59,13 @@ namespace Script_Principal
                 {
                     nombre = value;
                 }
+                else if (string.IsNullOrWhiteSpace(value))
+                {
+                    Console.WriteLine("Error: El nombre no puede ir vacío.");
+                }
                 else
                 {
-                    Console.WriteLine("Error: EL nombre esta fuera del rango disponible.");
+                    Console.WriteLine("Error: El nombre esta fuera del rango establecido.");
                 }
             }
         }
