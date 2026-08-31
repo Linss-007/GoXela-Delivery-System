@@ -54,6 +54,7 @@ namespace Script_Principal
                         Console.WriteLine("+===========================================+");
                         Console.WriteLine("|            Gestión de Clientes            |");
                         Console.WriteLine("+===========================================+");
+                        
                         Console.ReadLine();
                         break;
                     case 2:
@@ -106,6 +107,7 @@ namespace Script_Principal
                         break;
                     case 8:
                         Console.Clear();
+                        Console.ForegroundColor = ConsoleColor.Blue;
                         Console.WriteLine("¡Gracias por usar nuestro programa, vuelta pronto!"); return;
                         break;
                     default:

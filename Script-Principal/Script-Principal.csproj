@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Automovil.cs" />
     <Compile Include="Bicicleta.cs" />
+    <Compile Include="Cliente.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Motocicleta.cs" />
     <Compile Include="Paquetes.cs" />

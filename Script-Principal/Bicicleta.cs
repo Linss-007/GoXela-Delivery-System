@@ -25,6 +25,7 @@ namespace Script_Principal
                 }
                 else
                 {
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: Capacidad límite fuera de rango.");
                 }
             }
@@ -40,6 +41,7 @@ namespace Script_Principal
 
         public override void MostrarInformacion()
         {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("+==============+ Bicicleta +==============+");
             base.MostrarInformacion();
             Console.WriteLine($"Capacidad límite propia: {CapacidadLimite} kg");

@@ -22,6 +22,7 @@ namespace Script_Principal
         }
         public override void MostrarInformacion()
         {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("+===========+ Automóvil +===========+");
             base.MostrarInformacion();
             Console.WriteLine("+===================================+");
