@@ -22,7 +22,7 @@ namespace Script_Principal
             get { return codigo; }
             set
             {
-                if (value.Length <= 10)
+                if (!string.IsNullOrWhiteSpace(value) && value.Length <= 10)
                 {
                     codigo = value;
                 }
@@ -37,13 +37,13 @@ namespace Script_Principal
             get { return numero; }
             set
             {
-                if (value.Length <= 8 && int.TryParse(value, out int num) == true)
+                if (!string.IsNullOrWhiteSpace(value) && value.Length == 8 && int.TryParse(value, out int num) == true)
                 {
                     numero = value;
                 }
                 else
                 {
-                    Console.WriteLine("El numero es inválido");
+                    Console.WriteLine("El número de teléfono debe tener 8 dígitos");
                 }
             }
         }
@@ -52,7 +52,7 @@ namespace Script_Principal
             get { return nombre; }
             set
             {
-                if (value.Length <= 10)
+                if (!string.IsNullOrWhiteSpace(value) && value.Length <= 50)
                 {
                     nombre = value;
                 }
