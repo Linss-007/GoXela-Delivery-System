@@ -46,7 +46,7 @@ namespace Script_Principal
             get { return direccionDestino; }
             set
             {
-                if (value.Length > 15 || value.Length < 50)
+                if (!string.IsNullOrWhiteSpace(value) && value.Length >= 15 && value.Length <= 50)
                 {
                     direccionDestino = value;
                 }
@@ -62,7 +62,7 @@ namespace Script_Principal
             get { return direccionOrigen; }
             set
             {
-                if (value.Length > 15 || value.Length < 50)
+                if (!string.IsNullOrWhiteSpace(value) && value.Length >= 15 && value.Length <= 50)
                 {
                     direccionOrigen = value;
                 }
@@ -105,14 +105,24 @@ namespace Script_Principal
         public string Descripcion
         {
             get { return descripcion; }
-            set { descripcion = value; }
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    descripcion = value;
+                }
+                else
+                {
+                    Console.WriteLine("La descripción no puede estar vacía");
+                }
+            }
         }
         public string Codigo
         {
             get { return codigo; }
             set
             {
-                if (value.Length <= 10)
+                if (!string.IsNullOrWhiteSpace(value) && value.Length <= 10)
                 {
                     codigo = value;
                 }
