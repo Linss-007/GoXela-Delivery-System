@@ -36,7 +36,7 @@ namespace Script_Principal
                 }
                 else
                 {
-                    Console.WriteLine("El estado no existe");
+                    Console.WriteLine("Error: El estado no existe.");
                 }
             }
         }
@@ -52,7 +52,7 @@ namespace Script_Principal
                 }
                 else
                 {
-                    Console.WriteLine("Dirección de destino inválida");
+                    Console.WriteLine("Error: Dirección de destino inválida.");
                 }
             }
         }
@@ -68,7 +68,7 @@ namespace Script_Principal
                 }
                 else
                 {
-                    Console.WriteLine("Dirección de Origen inválida");
+                    Console.WriteLine("Error: Dirección de Origen inválida.");
                 }
             }
         }
@@ -83,7 +83,7 @@ namespace Script_Principal
                 }
                 else
                 {
-                    Console.WriteLine("El valor esta fuera de rango");
+                    Console.WriteLine("Error: El valor esta fuera de rango.");
                 }
             }
         }
@@ -98,7 +98,7 @@ namespace Script_Principal
                 }
                 else
                 {
-                    Console.WriteLine("El peso esta fuera de rango");
+                    Console.WriteLine("Error: El peso esta fuera de rango.");
                 }
             }
         }
@@ -113,7 +113,7 @@ namespace Script_Principal
                 }
                 else
                 {
-                    Console.WriteLine("La descripción no puede estar vacía");
+                    Console.WriteLine("Error: La descripción no puede estar vacía.");
                 }
             }
         }
@@ -128,7 +128,7 @@ namespace Script_Principal
                 }
                 else
                 {
-                    Console.WriteLine("Codigo inválido");
+                    Console.WriteLine("Error: Código inválido.");
                 }
             }
         }
