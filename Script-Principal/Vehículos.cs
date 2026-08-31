@@ -63,12 +63,30 @@ namespace Script_Principal
         public string Modelo
         {
             get { return modelo; }
-            set { modelo = value; }
+            set {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    modelo = value;
+                }
+                else
+                {
+                    Console.WriteLine("Error: Por favor, ingrese un modelo correcto.");
+                }
+            }
         }
         public string Marca
         {
             get { return marca; }
-            set { marca = value; }
+            set {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    marca = value;
+                }
+                else
+                {
+                    Console.WriteLine("Error: Por favor, ingrese una marcar correcta.");
+                }
+            }
         }
         public string Placa
         {
