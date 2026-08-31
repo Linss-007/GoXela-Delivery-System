@@ -28,7 +28,7 @@ namespace Script_Principal
                 }
                 else
                 {
-                    Console.WriteLine("Codigo inválido");
+                    Console.WriteLine("Error: Código inválido.");
                 }
             }
         }
@@ -43,7 +43,7 @@ namespace Script_Principal
                 }
                 else
                 {
-                    Console.WriteLine("El número de teléfono debe tener 8 dígitos");
+                    Console.WriteLine("Error: El número de teléfono debe tener 8 dígitos.");
                 }
             }
         }
@@ -58,7 +58,7 @@ namespace Script_Principal
                 }
                 else
                 {
-                    Console.WriteLine("EL nombre esta fuera del rango disponible");
+                    Console.WriteLine("Error: EL nombre esta fuera del rango disponible.");
                 }
             }
         }
