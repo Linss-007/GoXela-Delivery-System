@@ -50,6 +50,7 @@
     <Compile Include="Motocicleta.cs" />
     <Compile Include="PaqueteFragil.cs" />
     <Compile Include="Paquetes.cs" />
+    <Compile Include="ProductoRefrigerado.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Usuario.cs" />
