@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Script_Principal
 {
-    class Paquetes
+    abstract class Paquetes
     {
         private string codigo;
         private string descripcion;
@@ -29,7 +29,6 @@ namespace Script_Principal
             get { return estado; }
             set { estado = value; }
         }
-
         public string DireccionDestino
         {
             get { return direccionDestino; }
@@ -53,7 +52,6 @@ namespace Script_Principal
                 }
             }
         }
-
         public string DireccionOrigen
         {
             get { return direccionOrigen; }
@@ -145,7 +143,9 @@ namespace Script_Principal
                 }
             }
         }
-        public virtual void MostrarInfomacion()
+
+        public abstract double CalcularTarifa(double distancia);
+        public virtual void MostrarInformacion()
         {
             Console.WriteLine($"| Código: {Codigo}.");
             Console.WriteLine($"| Descripción: {Descripcion}.");
@@ -153,11 +153,7 @@ namespace Script_Principal
             Console.WriteLine($"| Valor declarado: {ValorDeclarado}.");
             Console.WriteLine($"| Dirección de Origen: {DireccionOrigen}.");
             Console.WriteLine($"| Dirección de Destino: {DireccionDestino}.");
-
-        }
-        public virtual double CalcularTarifa(double distancia)
-        {
-            return ValorDeclarado + (distancia * 10) + (PesoPaquete*15); 
+            Console.WriteLine($"| Estado: {Estado}.");
         }
     }
 }
