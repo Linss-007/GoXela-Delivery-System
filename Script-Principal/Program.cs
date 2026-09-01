@@ -319,11 +319,7 @@ namespace Script_Principal
                         break;
                     case 2:
                         Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.WriteLine("+===============================================+");
-                        Console.WriteLine("|            Gestión de Repartidores            |");
-                        Console.WriteLine("+===============================================+");
-                        Console.ResetColor();
+                        GestionarVehiculos();
                         Console.ReadLine();
                         break;
                     case 3:
