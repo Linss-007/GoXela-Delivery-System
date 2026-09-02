@@ -30,13 +30,13 @@ namespace Script_Principal
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El código no puede ir vacío.");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ResetColor();
                 }
                 else 
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: Código inválido.");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ResetColor();
                 }
             }
         }
@@ -102,7 +102,7 @@ namespace Script_Principal
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: El nombre no puede ir vacío.");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.ResetColor();
                         goto MalNombreNuevo;
                     }
                     else
@@ -128,11 +128,6 @@ namespace Script_Principal
                         Console.ForegroundColor = ConsoleColor.White;
                         goto MalNumeroNuevo;
                     }
-                    break;
-                default:
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: La opción ingresada no existe, intente de nuevo");
-                    Console.ForegroundColor = ConsoleColor.White;
                     break;
             }
         }

@@ -25,7 +25,19 @@ namespace Script_Principal
         public double CalifViaje
         {
             get { return califViaje; }
-            set { califViaje = value; }
+            set
+            {
+                if (value < 0 || value > 5)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error: La calificación ingresada esta fuera del rango, intente de nuevo");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    califViaje = value;
+                }
+            }
         }
         public double CalifPromedio
         {
@@ -35,7 +47,19 @@ namespace Script_Principal
         public int CantEntregas
         {
             get { return cantEntregas; }
-            set { cantEntregas = value; }
+            set
+            {
+                if (value < 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error: La cantidad de entregas no puede ser negativa");
+                    Console.ResetColor();
+                }
+                else
+                {
+                    cantEntregas += value;
+                }
+            }
         }
         public EstadoRepartidor Estado
         {
@@ -53,13 +77,13 @@ namespace Script_Principal
                     Console.WriteLine("Error: El numero de licencia no puede ser estar vacio, intente de nuevo");
                     Console.ResetColor();
                 }
-                else if(value.Length != 13)
+                else if (value.Length != 13)
                 {
-                    Console.ForegroundColor= ConsoleColor.Red;
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El numero de licencia no cumple con el rango, intente de nuevo");
                     Console.ResetColor();
                 }
-                else if(!int.TryParse(value, out int num))
+                else if (!int.TryParse(value, out int num))
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El numero debe contener unicamente numeros no letras, intente de nuevo");
@@ -76,6 +100,22 @@ namespace Script_Principal
             get { return licencia; }
             set { licencia = value; }
         }
-
+        public override void Actualizar(int opcion)
+        {
+            base.Actualizar(opcion);
+            switch(opcion)
+            {
+                case 3:
+                    Console.WriteLine();
+                    break;
+                case 4:
+                    break;
+                default:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error: La opción ingresada no existe, intente de nuevo");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    break;
+            }
+        }
     }
 }

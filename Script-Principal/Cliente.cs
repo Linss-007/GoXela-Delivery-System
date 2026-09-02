@@ -24,13 +24,13 @@ namespace Script_Principal
             {
                 if (cantSolicitudes > 0)
                 {
-                    cantSolicitudes = value;
+                    cantSolicitudes += value;
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: La cantidad de solicitudes no puede ser menor a cero.");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ResetColor();
                 }
             }
         }
@@ -47,13 +47,13 @@ namespace Script_Principal
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: La dirección no puede estar vacia, intente de nuevo.");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ResetColor();
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: La dirección excede el largo dispoible, intente de nuevo.");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ResetColor();
                 }
             }
         }
@@ -70,20 +70,20 @@ namespace Script_Principal
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El correo no pude estar vacio, intente de nuevo.");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ResetColor();
 
                 }
                 else if (!value.Contains('@'))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El correo no tiene @, intente de nuevo.");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ResetColor();
                 }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El correo excede el largo disponible, intente de nuevo");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ResetColor();
                 }
             }
         }
@@ -110,20 +110,20 @@ namespace Script_Principal
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: El correo no pude estar vacio, intente de nuevo.");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.ResetColor();
 
                     }
                     else if (!nuevoCorreo.Contains('@'))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: El correo no tiene @, intente de nuevo.");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.ResetColor();
                     }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: El correo excede el largo disponible, intente de nuevo");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.ResetColor();
                     }
                     break;
                 case 4:
@@ -137,14 +137,19 @@ namespace Script_Principal
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: La dirección no puede estar vacia, intente de nuevo.");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.ResetColor();
                     }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: La dirección excede el largo dispoible, intente de nuevo.");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.ResetColor();
                     }
+                    break;
+                default:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error: La opción ingresada no existe, intente de nuevo");
+                    Console.ResetColor();
                     break;
             }
         }
