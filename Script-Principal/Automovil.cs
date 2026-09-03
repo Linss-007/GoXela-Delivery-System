@@ -9,7 +9,7 @@ namespace Script_Principal
     class Automovil : Vehículos
     {
         public Automovil(string codigoIng, string placaIng, string marcaIng, string modeloIng, EstadoVehiculo estadoIng)
-            : base(codigoIng, placaIng, marcaIng, modeloIng, estadoIng)
+             : base(codigoIng, placaIng, marcaIng, modeloIng, estadoIng)
         {
         }
         public override bool PuedeTransportar(Paquetes paquete)

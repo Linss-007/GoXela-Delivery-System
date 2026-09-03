@@ -15,7 +15,7 @@ namespace Script_Principal
         private double capacidadCarga;
         private EstadoVehiculo estado;
         private double costoOperativo;
-        public Vehículos(string codigoIng, string placaIng, string marcaIng, string modeloIng, EstadoVehiculo estadoIng)
+        public Vehículos(string codigoIng, string placaIng, string marcaIng, string modeloIng, EstadoVehiculo estadoIng)    
         {
             Codigo = codigoIng;
             Placa = placaIng;
