@@ -53,4 +53,11 @@ namespace Script_Principal
         ProblemasClimaticos,
         RechazoRecepcion
     }
+    public enum Tipolicencia
+    {
+        C,
+        B,
+        A,
+        M
+    }
 }

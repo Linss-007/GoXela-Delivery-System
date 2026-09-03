@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Script_Principal
 {
-    class Paquetes
+    abstract class Paquetes
     {
         private string codigo;
         private string descripcion;
@@ -14,8 +14,8 @@ namespace Script_Principal
         private double valorDeclarado;
         private string direccionOrigen;
         private string direccionDestino;
-        private string estado;
-        public Paquetes(string codigoIng, string descripIng, double pesoIng, double valorIng, string direcOrigenIng, string direcDestinoIng, string estadoIng)
+        private EstadoPaquete estado;
+        public Paquetes(string codigoIng, string descripIng, double pesoIng, double valorIng, string direcOrigenIng, string direcDestinoIng)
         {
             Codigo = codigoIng;
             Descripcion = descripIng;
@@ -23,26 +23,12 @@ namespace Script_Principal
             ValorDeclarado = valorIng;
             DireccionOrigen = direcOrigenIng;
             DireccionDestino = direcDestinoIng;
-            Estado = estadoIng;
         }
-        public string Estado
+        public EstadoPaquete Estado
         {
             get { return estado; }
-            set
-            {
-                if (value == "recibido" || value == "empacado" || value == "enviado" || value == "entregado")
-                {
-                    estado = value;
-                }
-                else
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: El estado no existe.");
-                    Console.ForegroundColor = ConsoleColor.White;
-                }
-            }
+            set { estado = value; }
         }
-
         public string DireccionDestino
         {
             get { return direccionDestino; }
@@ -66,7 +52,6 @@ namespace Script_Principal
                 }
             }
         }
-
         public string DireccionOrigen
         {
             get { return direccionOrigen; }
@@ -157,6 +142,18 @@ namespace Script_Principal
                     Console.ForegroundColor = ConsoleColor.White;
                 }
             }
+        }
+
+        public abstract double CalcularTarifa(double distancia);
+        public virtual void MostrarInformacion()
+        {
+            Console.WriteLine($"| Código: {Codigo}.");
+            Console.WriteLine($"| Descripción: {Descripcion}.");
+            Console.WriteLine($"| Peso del paquete: {PesoPaquete} kg.");
+            Console.WriteLine($"| Valor declarado: {ValorDeclarado}.");
+            Console.WriteLine($"| Dirección de Origen: {DireccionOrigen}.");
+            Console.WriteLine($"| Dirección de Destino: {DireccionDestino}.");
+            Console.WriteLine($"| Estado: {Estado}.");
         }
     }
 }
