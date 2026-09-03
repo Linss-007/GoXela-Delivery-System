@@ -69,11 +69,7 @@ namespace Script_Principal
                         break;
                     case 3:
                         Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.WriteLine("+===========================================+");
-                        Console.WriteLine("|            Gestión de Vehículos           |");
-                        Console.WriteLine("+===========================================+");
-                        Console.ResetColor();
+                        GestionarVehiculos();
                         Console.ReadLine();
                         break;
                     case 4:

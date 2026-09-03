@@ -9,10 +9,10 @@ namespace Script_Principal
     class Bicicleta : Vehículos
     {
         private double capacidadLimite;
-        public Bicicleta(string codigoIng, string placaIng, string marcaIng, string modeloIng, double capacidadIng, EstadoVehiculo estadoIng, double costoOpIng, double capacidadLimiteIng)
-            : base(codigoIng, placaIng, marcaIng, modeloIng, capacidadIng, estadoIng, costoOpIng)
+        public Bicicleta(string codigoIng, string placaIng, string marcaIng, string modeloIng, EstadoVehiculo estadoIng)
+            : base(codigoIng, placaIng, marcaIng, modeloIng, estadoIng)
         {
-            CapacidadLimite = capacidadLimiteIng;
+
         }
         public double CapacidadLimite
         {

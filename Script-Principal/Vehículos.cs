@@ -15,15 +15,13 @@ namespace Script_Principal
         private double capacidadCarga;
         private EstadoVehiculo estado;
         private double costoOperativo;
-        public Vehículos(string codigoIng, string placaIng, string marcaIng, string modeloIng, double capacidadIng, EstadoVehiculo estadoIng, double CostoOpIng)
+        public Vehículos(string codigoIng, string placaIng, string marcaIng, string modeloIng, EstadoVehiculo estadoIng)
         {
             Codigo = codigoIng;
             Placa = placaIng;
             Marca = marcaIng;
             Modelo = modeloIng;
-            CapacidadCarga = capacidadIng;
             Estado = estadoIng;
-            CostoOperativo = CostoOpIng;
         }
         public double CostoOperativo
         {
