@@ -55,7 +55,7 @@ namespace Script_Principal
                         Console.WriteLine("+===========================================+");
                         Console.WriteLine("|            Gestión de Clientes            |");
                         Console.WriteLine("+===========================================+");
-                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.ReadLine();
                         break;
                     case 2:
@@ -64,7 +64,7 @@ namespace Script_Principal
                         Console.WriteLine("+===============================================+");
                         Console.WriteLine("|            Gestión de Repartidores            |");
                         Console.WriteLine("+===============================================+");
-                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.ReadLine();
                         break;
                     case 3:
@@ -78,7 +78,7 @@ namespace Script_Principal
                         Console.WriteLine("+===========================================+");
                         Console.WriteLine("|            Gestión de Paquetes            |");
                         Console.WriteLine("+===========================================+");
-                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.ReadLine();
                         break;
                     case 5:
@@ -87,7 +87,7 @@ namespace Script_Principal
                         Console.WriteLine("+===========================================+");
                         Console.WriteLine("|            Gestión de Entregas            |");
                         Console.WriteLine("+===========================================+");
-                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.ReadLine();
                         break;
                     case 6:
@@ -96,7 +96,7 @@ namespace Script_Principal
                         Console.WriteLine("+==============================================+");
                         Console.WriteLine("|            Gestión de Incidencias            |");
                         Console.WriteLine("+==============================================+");
-                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.ReadLine();
                         break;
                     case 7:
@@ -105,7 +105,7 @@ namespace Script_Principal
                         Console.WriteLine("+================================+");
                         Console.WriteLine("|            Reportes            |");
                         Console.WriteLine("+================================+");
-                        Console.ResetColor();
+                        Console.ForegroundColor = ConsoleColor.White;
                         Console.ReadLine();
                         break;
                     case 8:
