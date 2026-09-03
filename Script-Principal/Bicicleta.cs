@@ -10,7 +10,7 @@ namespace Script_Principal
     {
         private double capacidadLimite;
         public Bicicleta(string codigoIng, string placaIng, string marcaIng, string modeloIng, EstadoVehiculo estadoIng)
-            : base(codigoIng, placaIng, marcaIng, modeloIng, estadoIng)
+           : base(codigoIng, placaIng, marcaIng, modeloIng, estadoIng)
         {
 
         }

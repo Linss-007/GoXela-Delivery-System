@@ -9,7 +9,7 @@ namespace Script_Principal
     class Motocicleta : Vehículos
     {
         public Motocicleta(string codigoIng, string placaIng, string marcaIng, string modeloIng, EstadoVehiculo estadoIng)
-             : base(codigoIng, placaIng, marcaIng, modeloIng, estadoIng)
+           : base(codigoIng, placaIng, marcaIng, modeloIng, estadoIng)
         {
         }
 
