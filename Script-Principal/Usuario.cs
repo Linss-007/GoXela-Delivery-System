@@ -92,6 +92,7 @@ namespace Script_Principal
             {
                 case 1:
                 MalNombreNuevo:
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("Ingrese el nombre nuevo: ");
                     string nombreNuevo = Console.ReadLine();
                     if (!string.IsNullOrWhiteSpace(nombreNuevo) && nombreNuevo.Length <= 50)
@@ -112,9 +113,11 @@ namespace Script_Principal
                         Console.ForegroundColor = ConsoleColor.White;
                         goto MalNombreNuevo;
                     }
+                    Console.ResetColor();
                     break;
                 case 2:
                 MalNumeroNuevo:
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("Ingrese el número nuevo: ");
                     string numeroNuevo = Console.ReadLine();
                     if (!string.IsNullOrWhiteSpace(numeroNuevo) && numeroNuevo.Length == 8 && int.TryParse(numeroNuevo, out int num) == true)
@@ -128,6 +131,7 @@ namespace Script_Principal
                         Console.ForegroundColor = ConsoleColor.White;
                         goto MalNumeroNuevo;
                     }
+                    Console.ResetColor();
                     break;
             }
         }

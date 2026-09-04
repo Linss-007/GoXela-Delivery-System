@@ -74,7 +74,8 @@ namespace Script_Principal
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: El numero de licencia no puede ser estar vacio, intente de nuevo");
+                    Console.WriteLine("Error: El numero de licencia no puede ser estar vacío, intente de nuevo");
+
                     Console.ResetColor();
                 }
                 else if (value.Length != 13)
@@ -86,7 +87,7 @@ namespace Script_Principal
                 else if (!int.TryParse(value, out int num))
                 {
                     Console.BackgroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: El numero debe contener unicamente numeros no letras, intente de nuevo");
+                    Console.WriteLine("Error: El numero debe contener solo números no letras, intente de nuevo");
                     Console.ResetColor();
                 }
                 else
@@ -106,7 +107,22 @@ namespace Script_Principal
             switch(opcion)
             {
                 case 3:
-                    Console.WriteLine();
+                MalTipoLicencia:
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("Ingrese el tipo de licencia a actualizar.");
+                    Console.WriteLine("1. C");
+                    Console.WriteLine("2. B");
+                    Console.WriteLine("3. A");
+                    Console.WriteLine("4. M");
+                    if(!int.TryParse(Console.ReadLine(), out int tipoLicenciaNueva) || tipoLicenciaNueva < 1 || tipoLicenciaNueva > 4)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El índice ingresado no es válido, intente de nuevo");
+                        Console.ResetColor();
+                        goto MalTipoLicencia;
+                    }
+                    Licencia = (TipoLicencia)tipoLicenciaNueva-1;
+                    
                     break;
                 case 4:
                     break;

@@ -100,17 +100,16 @@ namespace Script_Principal
             switch(opcion)
             {
                 case 3:
+                MalCorreo:
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("Ingrese el nuevo correo: ");
                     string nuevoCorreo = Console.ReadLine();
-                    if (nuevoCorreo.Length <= 30 && nuevoCorreo.Contains('@'))
-                    {
-                        correo = nuevoCorreo;
-                    }
-                    else if (string.IsNullOrWhiteSpace(nuevoCorreo))
+                    if (string.IsNullOrWhiteSpace(nuevoCorreo))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: El correo no pude estar vacio, intente de nuevo.");
                         Console.ResetColor();
+                        goto MalCorreo;
 
                     }
                     else if (!nuevoCorreo.Contains('@'))
@@ -118,33 +117,45 @@ namespace Script_Principal
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: El correo no tiene @, intente de nuevo.");
                         Console.ResetColor();
+                        goto MalCorreo;
                     }
-                    else
+                    else (nuevoCorreo.Length > 30)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: El correo excede el largo disponible, intente de nuevo");
                         Console.ResetColor();
+                        goto MalCorreo;
                     }
+                    else
+                    {
+                        correo = nuevoCorreo;
+                    }
+                    Console.ResetColor();
                     break;
                 case 4:
+                MalDireccion:
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("Ingrese la dirección actualizada: ");
                     string nuevaDireccion = Console.ReadLine();
-                    if (nuevaDireccion.Length <= 50)
-                    {
-                        direccion = nuevaDireccion;
-                    }
-                    else if (string.IsNullOrWhiteSpace(nuevaDireccion))
+                    if (string.IsNullOrWhiteSpace(nuevaDireccion))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: La dirección no puede estar vacia, intente de nuevo.");
                         Console.ResetColor();
+                        goto MalDireccion;
                     }
-                    else
+                    else if (nuevaDireccion.Length > 50)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: La dirección excede el largo dispoible, intente de nuevo.");
                         Console.ResetColor();
+                        goto MalDireccion;
                     }
+                    else
+                    {
+                        direccion = nuevaDireccion;
+                    }
+                    Console.ResetColor();
                     break;
                 default:
                     Console.ForegroundColor = ConsoleColor.Red;
