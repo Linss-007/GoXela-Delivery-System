@@ -15,12 +15,10 @@ namespace Script_Principal
         private string direccionOrigen;
         private string direccionDestino;
         private EstadoPaquete estado;
-        public Paquetes(string codigoIng, string descripIng, double pesoIng, double valorIng, string direcOrigenIng, string direcDestinoIng)
+        public Paquetes(string codigoIng, string descripIng, string direcOrigenIng, string direcDestinoIng)
         {
             Codigo = codigoIng;
             Descripcion = descripIng;
-            PesoPaquete = pesoIng;
-            ValorDeclarado = valorIng;
             DireccionOrigen = direcOrigenIng;
             DireccionDestino = direcDestinoIng;
         }

@@ -8,7 +8,7 @@ namespace Script_Principal
 {
     internal class PaqueteEstandar:Paquetes
     {
-        public PaqueteEstandar(string codigoIng, string descripIng, double pesoIng, double valorIng, string direcOrigenIng, string direcDestinoIng) :base(codigoIng, descripIng, pesoIng, valorIng, direcOrigenIng, direcDestinoIng)
+        public PaqueteEstandar(string codigoIng, string descripIng, string direcOrigenIng, string direcDestinoIng) :base(codigoIng, descripIng,direcOrigenIng, direcDestinoIng)
         {
 
         }

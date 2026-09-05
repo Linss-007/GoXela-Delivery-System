@@ -8,8 +8,8 @@ namespace Script_Principal
 {
     internal class Documento : Paquetes
     {
-        public Documento(string codigoIng, string descripIng, double pesoIng, double valorIng, string direcOrigenIng, string direcDestinoIng)
-            : base(codigoIng, descripIng, pesoIng, valorIng, direcOrigenIng, direcDestinoIng)
+        public Documento(string codigoIng, string descripIng, string direcOrigenIng, string direcDestinoIng)
+            : base(codigoIng, descripIng, direcOrigenIng, direcDestinoIng)
         {
         }
         public override double CalcularTarifa(double distancia)

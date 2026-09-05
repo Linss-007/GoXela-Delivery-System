@@ -14,10 +14,10 @@ namespace Script_Principal
             get { return requiereManejoEspecial; }
             set { requiereManejoEspecial = value; }
         }
-        public PaqueteFragil(string codigoIng, string descripIng, double pesoIng, double valorIng, string direcOrigenIng, string direcDestinoIng, bool requiereManejoEspecialIng)
-            : base(codigoIng, descripIng, pesoIng, valorIng, direcOrigenIng, direcDestinoIng)
+        public PaqueteFragil(string codigoIng, string descripIng, string direcOrigenIng, string direcDestinoIng)
+            : base(codigoIng, descripIng, direcOrigenIng, direcDestinoIng)
         {
-            RequiereManejoEspecial = requiereManejoEspecialIng;
+
         }
         public override double CalcularTarifa(double distancia)
         {
