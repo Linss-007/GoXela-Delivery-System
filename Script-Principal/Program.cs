@@ -43,6 +43,7 @@ namespace Script_Principal
                 Console.WriteLine("|            Gestión de Vehículos           |");
                 Console.WriteLine("+===========================================+");
                 Console.ResetColor();
+                Console.WriteLine();
                 Console.WriteLine("+==================================================+");
                 Console.WriteLine("|  [1]  Registrar Automóvil                        |");
                 Console.WriteLine("|  [2]  Registrar Motocicleta                      |");
@@ -105,7 +106,7 @@ namespace Script_Principal
                 if (vehiculos.Exists(v => v.Codigo == codigoIng))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: El código ingresado ya existe.");
+                    Console.Write("Error: El código ingresado ya existe.");
                     Console.ResetColor();
                     Console.ReadLine();
                     Console.WriteLine();
@@ -114,7 +115,7 @@ namespace Script_Principal
                 else if (string.IsNullOrWhiteSpace(codigoIng) || codigoIng.Length > 10)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: Código inválido.");
+                    Console.Write("Error: Código inválido.");
                     Console.ResetColor();
                     Console.ReadLine();
                     Console.WriteLine();
@@ -123,7 +124,7 @@ namespace Script_Principal
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Código ingresado correctamente.");
+                    Console.Write("Código ingresado correctamente.");
                     Console.ResetColor();
                     Console.ReadLine();
                     Console.WriteLine();
@@ -140,16 +141,16 @@ namespace Script_Principal
                 if (vehiculos.Exists(v => v.Placa == placa))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: La placa ingresada ya existe.");
+                    Console.Write("Error: La placa ingresada ya existe.");
                     Console.ResetColor();
                     Console.ReadLine();
-                    valido = false;
                     Console.WriteLine();
+                    valido = false;
                 }
                 else if (string.IsNullOrWhiteSpace(placa) || placa.Length != 7)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: La placa ingresada no es válida.");
+                    Console.Write("Error: La placa ingresada no es válida.");
                     Console.ResetColor();
                     Console.ReadLine();
                     Console.WriteLine();
@@ -158,12 +159,13 @@ namespace Script_Principal
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Placa ingresada correctamente.");
+                    Console.Write("Placa ingresada correctamente.");
                     Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
                     valido = true;
                 }
             } while (!valido);
-            Console.WriteLine();
             string marca;
             do
             {
@@ -174,7 +176,7 @@ namespace Script_Principal
                 if (string.IsNullOrWhiteSpace(marca))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: La marca no puede estar vacía.");
+                    Console.Write("Error: La marca no puede estar vacía.");
                     Console.ResetColor();
                     Console.ReadLine();
                     Console.WriteLine();
@@ -183,7 +185,7 @@ namespace Script_Principal
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Marca ingresada correctamente.");
+                    Console.Write("Marca ingresada correctamente.");
                     Console.ResetColor();
                     Console.ReadLine();
                     Console.WriteLine();
@@ -200,7 +202,7 @@ namespace Script_Principal
                 if (string.IsNullOrWhiteSpace(modelo))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: El modelo no puede estar vacío.");
+                    Console.Write("Error: El modelo no puede estar vacío.");
                     Console.ResetColor();
                     Console.ReadLine();
                     Console.WriteLine();
@@ -209,7 +211,7 @@ namespace Script_Principal
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Modelo ingresado correctamente.");
+                    Console.Write("Modelo ingresado correctamente.");
                     Console.ResetColor();
                     Console.ReadLine();
                     Console.WriteLine();
@@ -236,20 +238,20 @@ namespace Script_Principal
                     if (!valido)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Error: Tipo de dato incorrecto, por favor ingrese un número válido.");
+                        Console.Write("Error: Tipo de dato incorrecto, por favor ingrese un número válido.");
                         Console.ResetColor();
                         Console.ReadLine();
                         Console.WriteLine();
                     }
                     else
                     {
+                        nuevoVehiculo = new Bicicleta(codigoIng, placa, marca, modelo, EstadoVehiculo.Disponible);
                         ((Bicicleta)(nuevoVehiculo)).CapacidadLimite = capacidadLimite;
                         if (((Bicicleta)(nuevoVehiculo)).CapacidadLimite == capacidadLimite)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
                             Console.WriteLine("Capacidad límite ingresada correctamente.");
                             Console.ResetColor();
-                            nuevoVehiculo = new Bicicleta(codigoIng, placa, marca, modelo, EstadoVehiculo.Disponible);
                         }
                         else
                         {
@@ -258,8 +260,6 @@ namespace Script_Principal
                     }
                 } while (!valido);
             }
-            if (nuevoVehiculo != ((Bicicleta)(nuevoVehiculo)))
-            {
                 double capacidad;
                 do
                 {
@@ -271,7 +271,7 @@ namespace Script_Principal
                     if (!valido)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Error: Tipo de dato incorrecto, por favor ingrese un número válido.");
+                        Console.Write("Error: Tipo de dato incorrecto, por favor ingrese un número válido.");
                         Console.ResetColor();
                         Console.ReadLine();
                         Console.WriteLine();
@@ -280,7 +280,9 @@ namespace Script_Principal
                     if (nuevoVehiculo.CapacidadCarga == capacidad)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Capacidad ingresada correctamente.");
+                        Console.Write("Capacidad ingresada correctamente.");
+                    Console.ReadLine();
+                    Console.WriteLine();
                         Console.ResetColor();
                         valido = true;
                     }
@@ -290,7 +292,6 @@ namespace Script_Principal
                     }
                 } while (!valido);
                 Console.WriteLine();
-            }
             double costoOperativo;
             do {
                 Console.ForegroundColor = ConsoleColor.White;
@@ -300,7 +301,7 @@ namespace Script_Principal
                 if (!valido)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: Tipo de dato incorrecto, por favor ingrese un número válido.");
+                    Console.Write("Error: Tipo de dato incorrecto, por favor ingrese un número válido.");
                     Console.ResetColor();
                     Console.ReadLine();
                     Console.WriteLine();
@@ -311,7 +312,7 @@ namespace Script_Principal
                     if (nuevoVehiculo.CostoOperativo == costoOperativo)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Costo operativo ingresado correctamente.");
+                        Console.Write("Costo operativo ingresado correctamente.");
                         Console.ResetColor();
                         Console.ReadLine();
                         Console.WriteLine();
@@ -326,7 +327,7 @@ namespace Script_Principal
             Console.WriteLine();
             vehiculos.Add(nuevoVehiculo);
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"{tipo} registrado correctamente.");
+            Console.Write($"{tipo} registrado correctamente.");
             Console.ResetColor();
             Console.ReadLine();
         }
