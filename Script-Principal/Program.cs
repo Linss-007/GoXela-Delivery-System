@@ -61,29 +61,29 @@ namespace Script_Principal
                     Console.ReadLine();
                     continue;
                 }
-                    switch (opcion)
-                    {
-                        case 1:
-                            RegistrarVehiculo("automovil");
-                            break;
-                        case 2:
-                            RegistrarVehiculo("motocicleta");
-                            break;
-                        case 3:
-                            RegistrarVehiculo("bicicleta");
-                            break;
-                        case 4:
-                            ListarVehiculos();
+                switch (opcion)
+                {
+                    case 1:
+                        RegistrarVehiculo("automovil");
                         break;
-                        case 5:
+                    case 2:
+                        RegistrarVehiculo("motocicleta");
                         break;
-                        default:
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Error: Opción inválida.");
-                            Console.ResetColor();
-                            Console.ReadLine();
-                            break;
-                    }
+                    case 3:
+                        RegistrarVehiculo("bicicleta");
+                        break;
+                    case 4:
+                        ListarVehiculos();
+                        break;
+                    case 5:
+                        break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Error: Opción inválida.");
+                        Console.ResetColor();
+                        Console.ReadLine();
+                        break;
+                }
             } while (opcion != 5);
         }
         static void RegistrarVehiculo(string tipo)
@@ -92,7 +92,7 @@ namespace Script_Principal
             Vehículos nuevoVehiculo = null;
             bool valido = true;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            if (tipo == "automovil" ||tipo == "bicicleta")
+            if (tipo == "automovil" || tipo == "bicicleta")
             {
                 Console.WriteLine("+==================================+");
                 Console.WriteLine($"|      Registro de {tipo}       |");
@@ -274,29 +274,31 @@ namespace Script_Principal
                     }
                 } while (!valido);
             }
-                double capacidad;
-                do
+            double capacidad;
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write($"Por favor, ingrese la capacidad máxima de carga (kg) del/de la {tipo}: ");
+                capacidad = 0;
+                valido = double.TryParse(Console.ReadLine(), out capacidad);
+                Console.WriteLine();
+                if (!valido)
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write($"Por favor, ingrese la capacidad máxima de carga (kg) del/de la {tipo}: ");
-                    capacidad = 0;
-                    valido = double.TryParse(Console.ReadLine(), out capacidad);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: Tipo de dato incorrecto, por favor ingrese un número válido.");
+                    Console.ResetColor();
+                    Console.ReadLine();
                     Console.WriteLine();
-                    if (!valido)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("Error: Tipo de dato incorrecto, por favor ingrese un número válido.");
-                        Console.ResetColor();
-                        Console.ReadLine();
-                        Console.WriteLine();
-                    }
+                }
+                else
+                {
                     nuevoVehiculo.CapacidadCarga = capacidad;
                     if (nuevoVehiculo.CapacidadCarga == capacidad)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.Write("Capacidad ingresada correctamente.");
-                    Console.ReadLine();
-                    Console.WriteLine();
+                        Console.ReadLine();
+                        Console.WriteLine();
                         Console.ResetColor();
                         valido = true;
                     }
@@ -304,9 +306,11 @@ namespace Script_Principal
                     {
                         valido = false;
                     }
-                } while (!valido);
+                }
+            } while (!valido);
             double costoOperativo;
-            do {
+            do
+            {
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write($"Por favor, ingrese el costo operativo del/de la {tipo}: ");
                 valido = double.TryParse(Console.ReadLine(), out costoOperativo);
