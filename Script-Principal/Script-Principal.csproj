@@ -46,6 +46,7 @@
     <Compile Include="Automovil.cs" />
     <Compile Include="Bicicleta.cs" />
     <Compile Include="Cliente.cs" />
+    <Compile Include="Direccion.cs" />
     <Compile Include="Documentación.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Motocicleta.cs" />
