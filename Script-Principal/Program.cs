@@ -8,13 +8,13 @@ namespace Script_Principal
 {
     internal class Program
     {
-        static List<Vehículos> vehiculos=new List<Vehículos>();
+        static List<Vehículos> vehiculos = new List<Vehículos>();
         static List<Paquetes> paquetes = new List<Paquetes>();
         static void Menu()
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("+==================================================+");
-            Console.WriteLine("|            Bienvenido GoXela Delivery            |");
+            Console.WriteLine("|           Bienvenido GoXela Delivery             |");
             Console.WriteLine("+==================================================+");
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -29,7 +29,7 @@ namespace Script_Principal
             Console.WriteLine("|  [8]  Salir                                      |");
             Console.WriteLine("+==================================================+");
             Console.WriteLine();
-            Console.ForegroundColor= ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Write("Ingrese el índice de la acción que desea realizar: ");
         }
         static void GestionarVehiculos()
@@ -61,29 +61,29 @@ namespace Script_Principal
                     Console.ReadLine();
                     continue;
                 }
-                    switch (opcion)
-                    {
-                        case 1:
-                            RegistrarVehiculo("automovil");
-                            break;
-                        case 2:
-                            RegistrarVehiculo("motocicleta");
-                            break;
-                        case 3:
-                            RegistrarVehiculo("bicicleta");
-                            break;
-                        case 4:
-                            ListarVehiculos();
+                switch (opcion)
+                {
+                    case 1:
+                        RegistrarVehiculo("automovil");
                         break;
-                        case 5:
-                            break;
-                        default:
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Error: Opción inválida.");
-                            Console.ResetColor();
-                            Console.ReadLine();
-                            break;
-                    }
+                    case 2:
+                        RegistrarVehiculo("motocicleta");
+                        break;
+                    case 3:
+                        RegistrarVehiculo("bicicleta");
+                        break;
+                    case 4:
+                        ListarVehiculos();
+                        break;
+                    case 5:
+                        break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Error: Opción inválida.");
+                        Console.ResetColor();
+                        Console.ReadLine();
+                        break;
+                }
             } while (opcion != 5);
         }
         static void RegistrarVehiculo(string tipo)
@@ -92,10 +92,22 @@ namespace Script_Principal
             Vehículos nuevoVehiculo = null;
             bool valido = true;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("+===========================================+");
-            Console.WriteLine($"|      Registro de {tipo}                   |");
-            Console.WriteLine("+===========================================+");
-            Console.ResetColor();
+            if (tipo == "automovil" || tipo == "bicicleta")
+            {
+                Console.WriteLine("+==================================+");
+                Console.WriteLine($"|      Registro de {tipo}       |");
+                Console.WriteLine("+==================================+");
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("+==================================+");
+                Console.WriteLine($"|      Registro de {tipo}     |");
+                Console.WriteLine("+==================================+");
+                Console.ResetColor();
+                Console.WriteLine();
+            }
             string codigoIng = "";
             do
             {
@@ -250,7 +262,9 @@ namespace Script_Principal
                         if (((Bicicleta)(nuevoVehiculo)).CapacidadLimite == capacidadLimite)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("Capacidad límite ingresada correctamente.");
+                            Console.Write("Capacidad límite ingresada correctamente.");
+                            Console.ReadLine();
+                            Console.WriteLine();
                             Console.ResetColor();
                         }
                         else
@@ -260,29 +274,31 @@ namespace Script_Principal
                     }
                 } while (!valido);
             }
-                double capacidad;
-                do
+            double capacidad;
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write($"Por favor, ingrese la capacidad máxima de carga (kg) del/de la {tipo}: ");
+                capacidad = 0;
+                valido = double.TryParse(Console.ReadLine(), out capacidad);
+                Console.WriteLine();
+                if (!valido)
                 {
-                    Console.ForegroundColor = ConsoleColor.White;
-                    Console.Write($"Por favor, ingrese la capacidad máxima de carga (kg) del/de la {tipo}: ");
-                    capacidad = 0;
-                    valido = double.TryParse(Console.ReadLine(), out capacidad);
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: Tipo de dato incorrecto, por favor ingrese un número válido.");
+                    Console.ResetColor();
+                    Console.ReadLine();
                     Console.WriteLine();
-                    if (!valido)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.Write("Error: Tipo de dato incorrecto, por favor ingrese un número válido.");
-                        Console.ResetColor();
-                        Console.ReadLine();
-                        Console.WriteLine();
-                    }
+                }
+                else
+                {
                     nuevoVehiculo.CapacidadCarga = capacidad;
                     if (nuevoVehiculo.CapacidadCarga == capacidad)
                     {
                         Console.ForegroundColor = ConsoleColor.Green;
                         Console.Write("Capacidad ingresada correctamente.");
-                    Console.ReadLine();
-                    Console.WriteLine();
+                        Console.ReadLine();
+                        Console.WriteLine();
                         Console.ResetColor();
                         valido = true;
                     }
@@ -290,10 +306,11 @@ namespace Script_Principal
                     {
                         valido = false;
                     }
-                } while (!valido);
-                Console.WriteLine();
+                }
+            } while (!valido);
             double costoOperativo;
-            do {
+            do
+            {
                 Console.ForegroundColor = ConsoleColor.White;
                 Console.Write($"Por favor, ingrese el costo operativo del/de la {tipo}: ");
                 valido = double.TryParse(Console.ReadLine(), out costoOperativo);
@@ -324,7 +341,6 @@ namespace Script_Principal
                     }
                 }
             } while (!valido);
-            Console.WriteLine();
             vehiculos.Add(nuevoVehiculo);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write($"{tipo} registrado correctamente.");
@@ -351,6 +367,383 @@ namespace Script_Principal
             Console.WriteLine("Presione ENTER para volver...");
             Console.ReadLine();
         }
+        static void GestionarPaquetes()
+        {
+            int opcion;
+            do
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("+===========================================+");
+                Console.WriteLine("|            Gestión de Paquetes            |");
+                Console.WriteLine("+===========================================+");
+                Console.ResetColor();
+                Console.WriteLine();
+                Console.WriteLine("+==================================================+");
+                Console.WriteLine("|  [1]  Registrar Documento                        |");
+                Console.WriteLine("|  [2]  Registrar Paquete Estándar                 |");
+                Console.WriteLine("|  [3]  Registrar Paquete Frágil                   |");
+                Console.WriteLine("|  [4]  Registrar Producto Refrigerado             |");
+                Console.WriteLine("|  [5]  Listar paquetes                            |");
+                Console.WriteLine("|  [6]  Volver al menú principal                   |");
+                Console.WriteLine("+==================================================+");
+                Console.WriteLine();
+                Console.Write("Por favor, ingrese una opción: ");
+                if (!int.TryParse(Console.ReadLine(), out opcion))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error: Ingrese un número entero.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    continue;
+                }
+                switch (opcion)
+                {
+                    case 1:
+                        RegistrarPaquete("documento");
+                        break;
+                    case 2:
+                        RegistrarPaquete("estandar");
+                        break;
+                    case 3:
+                        RegistrarPaquete("fragil");
+                        break;
+                    case 4:
+                        RegistrarPaquete("refrigerado");
+                        break;
+                    case 5:
+                        ListarPaquetes();
+                        break;
+                    case 6:
+                        break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Error: Opción inválida.");
+                        Console.ResetColor();
+                        Console.ReadLine();
+                        break;
+                }
+            } while (opcion != 6);
+        }
+        static void RegistrarPaquete(string tipo)
+        {
+            Console.Clear();
+            Paquetes nuevoPaquete = null;
+            bool valido = true;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            if (tipo == "documento")
+            {
+                Console.WriteLine("+==================================+");
+                Console.WriteLine($"|      Registro de {tipo}       |");
+                Console.WriteLine("+==================================+");
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+            else if (tipo == "estandar")
+            {
+                Console.WriteLine("+==================================+");
+                Console.WriteLine($"|      Registro de {tipo}        |");
+                Console.WriteLine("+==================================+");
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+            else if (tipo == "fragil")
+            {
+                Console.WriteLine("+==================================+");
+                Console.WriteLine($"|      Registro de {tipo}          |");
+                Console.WriteLine("+==================================+");
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("+==================================+");
+                Console.WriteLine($"|      Registro de {tipo}     |");
+                Console.WriteLine("+==================================+");
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+            string codigoIng = "";
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write($"Por favor, ingrese el código del/de la {tipo}: ");
+                codigoIng = Console.ReadLine();
+                Console.WriteLine();
+                if (paquetes.Exists(p => p.Codigo == codigoIng))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: El código ingresado ya existe.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    return;
+                }
+                else if (string.IsNullOrWhiteSpace(codigoIng) || codigoIng.Length > 10)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: Código inválido.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = false;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Código ingresado correctamente.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = true;
+                }
+            } while (!valido);
+            string descripcion;
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write($"Por favor, ingrese la descripción del/de la {tipo}: ");
+                descripcion = Console.ReadLine();
+                Console.WriteLine();
+                if (string.IsNullOrWhiteSpace(descripcion))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: La descripción no puede estar vacía.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = false;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Descripción ingresada correctamente.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = true;
+                }
+            } while (!valido);
+            string direccionOrigen;
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write($"Por favor, ingrese la dirección de origen del/de la {tipo}: ");
+                direccionOrigen = Console.ReadLine();
+                Console.WriteLine();
+                if (string.IsNullOrWhiteSpace(direccionOrigen) || direccionOrigen.Length < 15 || direccionOrigen.Length > 50)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: La dirección de origen inválida.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = false;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Dirección de origen ingresada correctamente.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = true;
+                }
+            } while (!valido);
+            string direccionDestino;
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write($"Por favor, ingrese la dirección de destino del/de la {tipo}: ");
+                direccionDestino = Console.ReadLine();
+                Console.WriteLine();
+                if (string.IsNullOrWhiteSpace(direccionDestino) || direccionDestino.Length < 15 || direccionDestino.Length > 50)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: La dirección de destino inválida.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = false;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Dirección de destino ingresada correctamente.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = true;
+                }
+            } while (!valido);
+            double temperaturaRequerida;
+            if (tipo == "documento")
+            {
+                nuevoPaquete = new Documento(codigoIng, descripcion, direccionOrigen, direccionDestino);
+            }
+            else if (tipo == "estandar")
+            {
+                nuevoPaquete = new PaqueteEstandar(codigoIng, descripcion, direccionOrigen, direccionDestino);
+            }
+            else if (tipo == "fragil")
+            {
+                string respuestaManejoEspecial;
+                do
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write($"¿Requiere manejo especial? (S/N): ");
+                    respuestaManejoEspecial = Console.ReadLine().Trim().ToUpper();
+                    Console.WriteLine();
+                    if (respuestaManejoEspecial != "S" && respuestaManejoEspecial != "N")
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("Error: Por favor ingrese S o N.");
+                        Console.ResetColor();
+                        Console.ReadLine();
+                        Console.WriteLine();
+                        valido = false;
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("Respuesta ingresada correctamente.");
+                        Console.ResetColor();
+                        Console.ReadLine();
+                        Console.WriteLine();
+                        valido = true;
+                    }
+                } while (!valido);
+                bool requiereManejoEspecial = respuestaManejoEspecial == "S";
+                nuevoPaquete = new PaqueteFragil(codigoIng, descripcion, direccionOrigen, direccionDestino);
+                ((PaqueteFragil)(nuevoPaquete)).RequiereManejoEspecial = requiereManejoEspecial;
+            }
+            else if (tipo == "refrigerado")
+            {
+                do
+                {
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write($"Por favor, ingrese la temperatura requerida (°C) de la {tipo}: ");
+                    valido = double.TryParse(Console.ReadLine(), out temperaturaRequerida);
+                    Console.WriteLine();
+                    if (!valido)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("Error: Tipo de dato incorrecto, por favor ingrese un número válido.");
+                        Console.ResetColor();
+                        Console.ReadLine();
+                        Console.WriteLine();
+                    }
+                    else
+                    {
+                        nuevoPaquete = new ProductoRefrigerado(codigoIng, descripcion, direccionOrigen, direccionDestino);
+                        ((ProductoRefrigerado)(nuevoPaquete)).TemperaturaRequerida = temperaturaRequerida;
+                        if (((ProductoRefrigerado)(nuevoPaquete)).TemperaturaRequerida == temperaturaRequerida)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("Temperatura requerida ingresada correctamente.");
+                            Console.WriteLine();
+                            Console.ResetColor();
+                        }
+                        else
+                        {
+                            valido = false;
+                        }
+                    }
+                } while (!valido);
+            }
+            double peso;
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write($"Por favor, ingrese el peso (kg) del/de la {tipo}: ");
+                peso = 0;
+                valido = double.TryParse(Console.ReadLine(), out peso);
+                Console.WriteLine();
+                if (!valido)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: Tipo de dato incorrecto, por favor ingrese un número válido.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                }
+                else
+                {
+                    nuevoPaquete.PesoPaquete = peso;
+                    if (nuevoPaquete.PesoPaquete == peso)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("Peso ingresado correctamente.");
+                        Console.ReadLine();
+                        Console.WriteLine();
+                        Console.ResetColor();
+                        valido = true;
+                    }
+                    else
+                    {
+                        valido = false;
+                    }
+                }
+            } while (!valido);
+            double valorDeclarado;
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write($"Por favor, ingrese el valor declarado del/de la {tipo}: ");
+                valido = double.TryParse(Console.ReadLine(), out valorDeclarado);
+                Console.WriteLine();
+                if (!valido)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: Tipo de dato incorrecto, por favor ingrese un número válido.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                }
+                else
+                {
+                    nuevoPaquete.ValorDeclarado = valorDeclarado;
+                    if (nuevoPaquete.ValorDeclarado == valorDeclarado)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("Valor declarado ingresado correctamente.");
+                        Console.ResetColor();
+                        Console.ReadLine();
+                        Console.WriteLine();
+                        valido = true;
+                    }
+                    else
+                    {
+                        valido = false;
+                    }
+                }
+            } while (!valido);
+            paquetes.Add(nuevoPaquete);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write($"{tipo} registrado correctamente.");
+            Console.ResetColor();
+            Console.ReadLine();
+        }
+        static void ListarPaquetes()
+        {
+            Console.Clear();
+            if (paquetes.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("No hay paquetes registrados.");
+                Console.ResetColor();
+            }
+            else
+            {
+                foreach (Paquetes p in paquetes)
+                {
+                    p.MostrarInformacion();
+                    Console.WriteLine();
+                }
+            }
+            Console.WriteLine("Presione ENTER para volver...");
+            Console.ReadLine();
+        }
         static void Main(string[] args)
         {
             int opcion;
@@ -368,7 +761,7 @@ namespace Script_Principal
                     continue;
                 }
 
-                switch(opcion)
+                switch (opcion)
                 {
                     case 1:
                         Console.Clear();
