@@ -25,10 +25,10 @@ namespace Script_Principal
                 }
             }
         }
-        public ProductoRefrigerado(string codigoIng, string descripIng, double pesoIng, double valorIng, string direcOrigenIng, string direcDestinoIng, double temperaturaRequeridaIng)
-            : base(codigoIng, descripIng, pesoIng, valorIng, direcOrigenIng, direcDestinoIng)
+        public ProductoRefrigerado(string codigoIng, string descripIng, string direcOrigenIng, string direcDestinoIng)
+            : base(codigoIng, descripIng, direcOrigenIng, direcDestinoIng)
         {
-            TemperaturaRequerida = temperaturaRequeridaIng;
+
         }
         public override double CalcularTarifa(double distancia)
         {
