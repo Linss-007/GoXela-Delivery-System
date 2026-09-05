@@ -14,7 +14,7 @@ namespace Script_Principal
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
             Console.WriteLine("+==================================================+");
-            Console.WriteLine("|            Bienvenido GoXela Delivery            |");
+            Console.WriteLine("|           Bienvenido GoXela Delivery             |");
             Console.WriteLine("+==================================================+");
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Yellow;
@@ -76,7 +76,7 @@ namespace Script_Principal
                             ListarVehiculos();
                         break;
                         case 5:
-                            break;
+                        break;
                         default:
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Error: Opción inválida.");
@@ -92,10 +92,22 @@ namespace Script_Principal
             Vehículos nuevoVehiculo = null;
             bool valido = true;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("+===========================================+");
-            Console.WriteLine($"|      Registro de {tipo}                   |");
-            Console.WriteLine("+===========================================+");
-            Console.ResetColor();
+            if (tipo == "automovil" ||tipo == "bicicleta")
+            {
+                Console.WriteLine("+==================================+");
+                Console.WriteLine($"|      Registro de {tipo}       |");
+                Console.WriteLine("+==================================+");
+                Console.ResetColor();
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine("+==================================+");
+                Console.WriteLine($"|      Registro de {tipo}     |");
+                Console.WriteLine("+==================================+");
+                Console.ResetColor();
+                Console.WriteLine();
+            }
             string codigoIng = "";
             do
             {
@@ -250,7 +262,9 @@ namespace Script_Principal
                         if (((Bicicleta)(nuevoVehiculo)).CapacidadLimite == capacidadLimite)
                         {
                             Console.ForegroundColor = ConsoleColor.Green;
-                            Console.WriteLine("Capacidad límite ingresada correctamente.");
+                            Console.Write("Capacidad límite ingresada correctamente.");
+                            Console.ReadLine();
+                            Console.WriteLine();
                             Console.ResetColor();
                         }
                         else
@@ -291,7 +305,6 @@ namespace Script_Principal
                         valido = false;
                     }
                 } while (!valido);
-                Console.WriteLine();
             double costoOperativo;
             do {
                 Console.ForegroundColor = ConsoleColor.White;
@@ -324,7 +337,6 @@ namespace Script_Principal
                     }
                 }
             } while (!valido);
-            Console.WriteLine();
             vehiculos.Add(nuevoVehiculo);
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write($"{tipo} registrado correctamente.");

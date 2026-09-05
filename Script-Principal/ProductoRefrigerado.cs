@@ -26,7 +26,7 @@ namespace Script_Principal
             }
         }
         public ProductoRefrigerado(string codigoIng, string descripIng, string direcOrigenIng, string direcDestinoIng)
-            : base(codigoIng, descripIng, pesoIng, valorIng, direcOrigenIng, direcDestinoIng)
+            : base(codigoIng, descripIng, direcOrigenIng, direcDestinoIng)
         {
 
         }
