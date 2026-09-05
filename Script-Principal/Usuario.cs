@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Script_Principal
 {
-    class Usuario
+    abstract class Usuario
     {
         private string nombre;
         private string numero;

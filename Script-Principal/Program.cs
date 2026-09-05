@@ -6,8 +6,11 @@ using System.Threading.Tasks;
 
 namespace Script_Principal
 {
+
     internal class Program
     {
+        static List<Cliente> clientes = new List<Cliente>();
+        static List<Repartidor> repartidores = new List<Repartidor>();
         static void Menu()
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -27,8 +30,48 @@ namespace Script_Principal
             Console.WriteLine("|  [8]  Salir                                      |");
             Console.WriteLine("+==================================================+");
             Console.WriteLine();
-            Console.ForegroundColor= ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Write("Ingrese el índice de la acción que desea realizar: ");
+        }
+        static void GestionClientes()
+        {
+            int opcion;
+            do
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("+===========================================+");
+                Console.WriteLine("|            Gestión de Clientes            |");
+                Console.WriteLine("+===========================================+\n");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("+===========================================+");
+                Console.WriteLine("| [1] Registrar cliente.                    |");
+                Console.WriteLine("| [2] Mostrar información de clientes.      |");
+                Console.WriteLine("| [3] Actualizar información de un cliente. |");
+                Console.WriteLine("| [4] Volver al menú principal.             |");
+                Console.WriteLine("+===========================================+\n");
+                Console.WriteLine("Por favor ingrese una opción.");
+                if (!int.TryParse(Console.ReadLine(), out opcion))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error: La opción ingresada no es un numero.");
+                    Console.ResetColor();
+                    Console.WriteLine("Presione una tecla para continuar.");
+                    Console.ReadKey();
+                }
+                switch(opcion)
+                {
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    case 4:
+                        break;
+                }
+            } while (opcion != 4);
         }
         static void Main(string[] args)
         {
@@ -47,16 +90,10 @@ namespace Script_Principal
                     continue;
                 }
 
-                switch(opcion)
+                switch (opcion)
                 {
                     case 1:
-                        Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.WriteLine("+===========================================+");
-                        Console.WriteLine("|            Gestión de Clientes            |");
-                        Console.WriteLine("+===========================================+");
-                        Console.ResetColor();
-                        Console.ReadLine();
+
                         break;
                     case 2:
                         Console.Clear();
@@ -65,7 +102,7 @@ namespace Script_Principal
                         Console.WriteLine("|            Gestión de Repartidores            |");
                         Console.WriteLine("+===============================================+");
                         Console.ResetColor();
-                        Console.ReadLine();
+
                         break;
                     case 3:
                         Console.Clear();

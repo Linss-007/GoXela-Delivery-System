@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Script_Principal
 {
@@ -104,7 +100,7 @@ namespace Script_Principal
         public override void Actualizar(int opcion)
         {
             base.Actualizar(opcion);
-            switch(opcion)
+            switch (opcion)
             {
                 case 3:
                 MalTipoLicencia:
@@ -114,17 +110,67 @@ namespace Script_Principal
                     Console.WriteLine("2. B");
                     Console.WriteLine("3. A");
                     Console.WriteLine("4. M");
-                    if(!int.TryParse(Console.ReadLine(), out int tipoLicenciaNueva) || tipoLicenciaNueva < 1 || tipoLicenciaNueva > 4)
+                    if (!int.TryParse(Console.ReadLine(), out int tipoLicenciaNueva) || tipoLicenciaNueva < 1 || tipoLicenciaNueva > 4)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("El índice ingresado no es válido, intente de nuevo");
+                        Console.WriteLine("El tipo ingresado no es válido, intente de nuevo");
                         Console.ResetColor();
                         goto MalTipoLicencia;
                     }
-                    Licencia = (TipoLicencia)tipoLicenciaNueva-1;
-                    
+                    Licencia = (TipoLicencia)tipoLicenciaNueva - 1;
+                    Console.WriteLine("Licencia actualizada con éxito");
+                    Console.ResetColor();
                     break;
                 case 4:
+                MalEstado:
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("Ingrese el nuevo estado del repartidor");
+                    Console.WriteLine("1. Disponible.");
+                    Console.WriteLine("2. Asignado.");
+                    Console.WriteLine("3. Fuera de Servicio.");
+                    if (!int.TryParse(Console.ReadLine(), out int estadoNuevo) || estadoNuevo < 1 || estadoNuevo > 3)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("El estado ingresado no es válido, intente de nuevo");
+                        Console.ResetColor();
+                        goto MalEstado;
+                    }
+                    Estado = (EstadoRepartidor)estadoNuevo - 1;
+                    Console.WriteLine("Estado actualizado con éxito");
+                    Console.ResetColor();
+                    break;
+                case 5:
+                MalNumLicencia:
+                    Console.ForegroundColor= ConsoleColor.DarkYellow;
+                    Console.WriteLine("Ingrese el nuevo numero de licencia");
+                    string nuevoNumLicencia = Console.ReadLine();
+                    if (string.IsNullOrWhiteSpace(nuevoNumLicencia))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Error: El numero de licencia no puede ser estar vacío, intente de nuevo");
+                        Console.ResetColor();
+                        goto MalNumLicencia;
+                    }
+                    else if (nuevoNumLicencia.Length != 13)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Error: El numero de licencia no cumple con el rango, intente de nuevo");
+                        Console.ResetColor();
+                        goto MalNumLicencia;
+                    }
+                    else if (!int.TryParse(nuevoNumLicencia, out int num))
+                    {
+                        Console.BackgroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Error: El numero debe contener solo números no letras, intente de nuevo");
+                        Console.ResetColor();
+                        goto MalNumLicencia;
+                    }
+                    else
+                    {
+                        numLicencia = Convert.ToString(num);
+                        Console.WriteLine("Licencia actualizada con éxito");
+                    }
+                    Console.ResetColor();
                     break;
                 default:
                     Console.ForegroundColor = ConsoleColor.Red;
