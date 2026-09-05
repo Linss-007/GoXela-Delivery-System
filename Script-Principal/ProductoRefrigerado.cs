@@ -12,7 +12,8 @@ namespace Script_Principal
         public double TemperaturaRequerida
         {
             get { return temperaturaRequerida; }
-            set {
+            set
+            {
                 if (value >= -10 && value <= 10)
                 {
                     temperaturaRequerida = value;
@@ -25,7 +26,7 @@ namespace Script_Principal
                 }
             }
         }
-        public ProductoRefrigerado(string codigoIng, string descripIng, string direcOrigenIng, string direcDestinoIng)
+        public ProductoRefrigerado(string codigoIng, string descripIng, Direccion direcOrigenIng, Direccion direcDestinoIng)
             : base(codigoIng, descripIng, direcOrigenIng, direcDestinoIng)
         {
 

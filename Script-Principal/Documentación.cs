@@ -8,7 +8,7 @@ namespace Script_Principal
 {
     internal class Documento : Paquetes
     {
-        public Documento(string codigoIng, string descripIng, string direcOrigenIng, string direcDestinoIng)
+        public Documento(string codigoIng, string descripIng, Direccion direcOrigenIng, Direccion direcDestinoIng)
             : base(codigoIng, descripIng, direcOrigenIng, direcDestinoIng)
         {
         }

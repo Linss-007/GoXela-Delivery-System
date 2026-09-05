@@ -12,10 +12,10 @@ namespace Script_Principal
         private string descripcion;
         private double pesoPaquete;
         private double valorDeclarado;
-        private string direccionOrigen;
-        private string direccionDestino;
+        private Direccion direccionOrigen;
+        private Direccion direccionDestino;
         private EstadoPaquete estado;
-        public Paquetes(string codigoIng, string descripIng, string direcOrigenIng, string direcDestinoIng)
+        public Paquetes(string codigoIng, string descripIng, Direccion direcOrigenIng, Direccion direcDestinoIng)
         {
             Codigo = codigoIng;
             Descripcion = descripIng;
@@ -27,20 +27,14 @@ namespace Script_Principal
             get { return estado; }
             set { estado = value; }
         }
-        public string DireccionDestino
+        public Direccion DireccionDestino
         {
             get { return direccionDestino; }
             set
             {
-                if (!string.IsNullOrWhiteSpace(value) && value.Length >= 15 && value.Length <= 50)
+                if (value.LongitudTotal() >= 15 && value.LongitudTotal() <= 50)
                 {
                     direccionDestino = value;
-                }
-                else if (string.IsNullOrWhiteSpace(value))
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: La dirección de destino no puede ir vacío.");
-                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {
@@ -50,20 +44,14 @@ namespace Script_Principal
                 }
             }
         }
-        public string DireccionOrigen
+        public Direccion DireccionOrigen
         {
             get { return direccionOrigen; }
             set
             {
-                if (!string.IsNullOrWhiteSpace(value) && value.Length >= 15 && value.Length <= 50)
+                if (value.LongitudTotal() >= 15 && value.LongitudTotal() <= 50)
                 {
                     direccionOrigen = value;
-                }
-                else if (string.IsNullOrWhiteSpace(value))
-                {
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: La dirección de origen no puede ir vacía.");
-                    Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
                 {

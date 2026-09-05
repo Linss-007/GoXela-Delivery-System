@@ -14,7 +14,7 @@ namespace Script_Principal
             get { return requiereManejoEspecial; }
             set { requiereManejoEspecial = value; }
         }
-        public PaqueteFragil(string codigoIng, string descripIng, string direcOrigenIng, string direcDestinoIng)
+        public PaqueteFragil(string codigoIng, string descripIng, Direccion direcOrigenIng, Direccion direcDestinoIng)
             : base(codigoIng, descripIng, direcOrigenIng, direcDestinoIng)
         {
 

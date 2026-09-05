@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace Script_Principal
 {
-    internal class PaqueteEstandar:Paquetes
+    internal class PaqueteEstandar : Paquetes
     {
-        public PaqueteEstandar(string codigoIng, string descripIng, string direcOrigenIng, string direcDestinoIng) :base(codigoIng, descripIng,direcOrigenIng, direcDestinoIng)
+        public PaqueteEstandar(string codigoIng, string descripIng, Direccion direcOrigenIng, Direccion direcDestinoIng)
+            : base(codigoIng, descripIng, direcOrigenIng, direcDestinoIng)
         {
 
         }
