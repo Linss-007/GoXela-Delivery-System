@@ -1356,6 +1356,883 @@ namespace Script_Principal
             }
             return suma;
         }
+        static List<Entrega> entregas = new List<Entrega>();
+        static void GestionarEntregas()
+        {
+            int opcion;
+            do
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("+===========================================+");
+                Console.WriteLine("|            Gestión de Entregas            |");
+                Console.WriteLine("+===========================================+");
+                Console.ResetColor();
+                Console.WriteLine();
+                Console.WriteLine("+==================================================+");
+                Console.WriteLine("|  [1]  Crear solicitud de entrega                 |");
+                Console.WriteLine("|  [2]  Asignar repartidor y vehículo              |");
+                Console.WriteLine("|  [3]  Cambiar estado de una entrega              |");
+                Console.WriteLine("|  [4]  Cancelar una entrega                       |");
+                Console.WriteLine("|  [5]  Reprogramar una entrega                    |");
+                Console.WriteLine("|  [6]  Listar entregas                            |");
+                Console.WriteLine("|  [7]  Volver al menú principal                   |");
+                Console.WriteLine("+==================================================+");
+                Console.WriteLine();
+                Console.Write("Por favor, ingrese una opción: ");
+                if (!int.TryParse(Console.ReadLine(), out opcion))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error: Ingrese un número entero.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    continue;
+                }
+                switch (opcion)
+                {
+                    case 1:
+                        CrearEntrega();
+                        break;
+                    case 2:
+                        AsignarEntrega();
+                        break;
+                    case 3:
+                        CambiarEstadoEntrega();
+                        break;
+                    case 4:
+                        CancelarEntrega();
+                        break;
+                    case 5:
+                        ReprogramarEntrega();
+                        break;
+                    case 6:
+                        ListarEntregas();
+                        break;
+                    case 7:
+                        break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Error: Opción inválida.");
+                        Console.ResetColor();
+                        Console.ReadLine();
+                        break;
+                }
+            } while (opcion != 7);
+        }
+
+        static void CrearEntrega()
+        {
+            Console.Clear();
+            Entrega nuevaEntrega = null;
+            bool valido = true;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("+==================================+");
+            Console.WriteLine("|      Crear Solicitud de Entrega |");
+            Console.WriteLine("+==================================+");
+            Console.ResetColor();
+            Console.WriteLine();
+            if (Usuarios.OfType<Cliente>().Count() == 0 || Usuarios.OfType<Repartidor>().Count() == 0 || vehiculos.Count == 0 || paquetes.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: Debe existir al menos un cliente, repartidor, vehículo y paquete registrado antes de crear una entrega.");
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                return;
+            }
+
+            string codigoIng = "";
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write("Por favor, ingrese el código de la entrega: ");
+                codigoIng = Console.ReadLine();
+                Console.WriteLine();
+                if (entregas.Exists(e => e.Codigo == codigoIng))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: El código ingresado ya existe.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    return;
+                }
+                else if (string.IsNullOrWhiteSpace(codigoIng) || codigoIng.Length > 10)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: Código inválido.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = false;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Código ingresado correctamente.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = true;
+                }
+            } while (!valido);
+
+            nuevaEntrega = new Entrega(codigoIng);
+
+            string codigoClienteIng;
+            Cliente clienteEncontrado = null;
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write("Por favor, ingrese el código del cliente que solicita la entrega: ");
+                codigoClienteIng = Console.ReadLine();
+                Console.WriteLine();
+                clienteEncontrado = null;
+                foreach (Cliente c in Usuarios.OfType<Cliente>())
+                {
+                    if (c.Codigo == codigoClienteIng)
+                    {
+                        clienteEncontrado = c;
+                        break;
+                    }
+                }
+                if (clienteEncontrado == null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: No hay cliente asignado a la entrega, el código ingresado no existe.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = false;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Cliente encontrado correctamente.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = true;
+                }
+            } while (!valido);
+            nuevaEntrega.Cliente = clienteEncontrado;
+            string codigoPaqueteIng;
+            Paquetes paqueteEncontrado = null;
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write("Por favor, ingrese el código del paquete a entregar: ");
+                codigoPaqueteIng = Console.ReadLine();
+                Console.WriteLine();
+                paqueteEncontrado = null;
+                foreach (Paquetes p in paquetes)
+                {
+                    if (p.Codigo == codigoPaqueteIng)
+                    {
+                        paqueteEncontrado = p;
+                        break;
+                    }
+                }
+                if (paqueteEncontrado == null)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: No hay un paquete asignado a la entrega, el código ingresado no existe.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = false;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Paquete encontrado correctamente.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = true;
+                }
+            } while (!valido);
+            nuevaEntrega.Paquete = paqueteEncontrado;
+            string calleOrigen;
+            string referenciaOrigen;
+            Direccion direccionOrigen = new Direccion();
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write("Por favor, ingrese la calle de origen de la entrega: ");
+                calleOrigen = Console.ReadLine();
+                Console.WriteLine();
+                Console.Write("Por favor, ingrese una referencia de origen de la entrega: ");
+                referenciaOrigen = Console.ReadLine();
+                Console.WriteLine();
+                Direccion intentoOrigen = new Direccion(calleOrigen, referenciaOrigen);
+                if (intentoOrigen.LongitudTotal() < 15 || intentoOrigen.LongitudTotal() > 50)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: La dirección de origen inválida.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = false;
+                }
+                else
+                {
+                    direccionOrigen = intentoOrigen;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Dirección de origen ingresada correctamente.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = true;
+                }
+            } while (!valido);
+            nuevaEntrega.DireccionOrigen = direccionOrigen;
+            string calleDestino;
+            string referenciaDestino;
+            Direccion direccionDestino = new Direccion();
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write("Por favor, ingrese la calle de destino de la entrega: ");
+                calleDestino = Console.ReadLine();
+                Console.WriteLine();
+                Console.Write("Por favor, ingrese una referencia de destino de la entrega: ");
+                referenciaDestino = Console.ReadLine();
+                Console.WriteLine();
+                Direccion intentoDestino = new Direccion(calleDestino, referenciaDestino);
+                if (intentoDestino.LongitudTotal() < 15 || intentoDestino.LongitudTotal() > 50)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: La dirección de destino inválida.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = false;
+                }
+                else
+                {
+                    direccionDestino = intentoDestino;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Dirección de destino ingresada correctamente.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = true;
+                }
+            } while (!valido);
+            nuevaEntrega.DireccionDestino = direccionDestino;
+            double distanciaEstimada;
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.Write("Por favor, ingrese la distancia estimada (km) de la entrega: ");
+                valido = double.TryParse(Console.ReadLine(), out distanciaEstimada);
+                Console.WriteLine();
+                if (!valido)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: Tipo de dato incorrecto, por favor ingrese un número válido.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                }
+                else
+                {
+                    nuevaEntrega.DistanciaEstimada = distanciaEstimada;
+                    if (nuevaEntrega.DistanciaEstimada == distanciaEstimada)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("Distancia estimada ingresada correctamente.");
+                        Console.ResetColor();
+                        Console.ReadLine();
+                        Console.WriteLine();
+                        valido = true;
+                    }
+                    else
+                    {
+                        valido = false;
+                    }
+                }
+            } while (!valido);
+
+            int opcionServicio;
+            do
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.WriteLine("Por favor, seleccione el tipo de servicio: ");
+                Console.WriteLine("[1] Normal   [2] Prioritario   [3] Urgente");
+                valido = int.TryParse(Console.ReadLine(), out opcionServicio) && opcionServicio >= 1 && opcionServicio <= 3;
+                Console.WriteLine();
+                if (!valido)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: La opción ingresada no es válida.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Tipo de servicio ingresado correctamente.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                }
+            } while (!valido);
+            nuevaEntrega.TipoServicio = (TipoServicio)(opcionServicio - 1);
+            entregas.Add(nuevaEntrega);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("Entrega creada correctamente.");
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.Write("Presione cualquier tecla para continuar");
+            Console.ReadKey();
+        }
+        static Entrega BuscarEntregaPorCodigo(string codigoIng)
+        {
+            foreach (Entrega e in entregas)
+            {
+                if (e.Codigo == codigoIng)
+                {
+                    return e;
+                }
+            }
+            return null;
+        }
+        static void AsignarEntrega()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("+==================================+");
+            Console.WriteLine("|   Asignar Repartidor y Vehículo |");
+            Console.WriteLine("+==================================+");
+            Console.ResetColor();
+            Console.WriteLine();
+            if (entregas.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: No hay entregas registradas.");
+                Console.ResetColor();
+                Console.Write("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                return;
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Ingrese el código de la entrega a asignar: ");
+            string codigoEntregaIng = Console.ReadLine();
+            Console.WriteLine();
+            Entrega entregaEncontrada = BuscarEntregaPorCodigo(codigoEntregaIng);
+            if (entregaEncontrada == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: La entrega ingresada no existe.");
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                return;
+            }
+            Console.Write("Ingrese el código del repartidor a asignar: ");
+            string codigoRepartidorIng = Console.ReadLine();
+            Console.WriteLine();
+            Repartidor repartidorEncontrado = null;
+            foreach (Repartidor r in Usuarios.OfType<Repartidor>())
+            {
+                if (r.Codigo == codigoRepartidorIng)
+                {
+                    repartidorEncontrado = r;
+                    break;
+                }
+            }
+            if (repartidorEncontrado == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: Repartidor ingresado no existe en el sistema.");
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                return;
+            }
+            Console.Write("Ingrese el código del vehículo a asignar: ");
+            string codigoVehiculoIng = Console.ReadLine();
+            Console.WriteLine();
+            Vehículos vehiculoEncontrado = null;
+            foreach (Vehículos v in vehiculos)
+            {
+                if (v.Codigo == codigoVehiculoIng)
+                {
+                    vehiculoEncontrado = v;
+                    break;
+                }
+            }
+            if (vehiculoEncontrado == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: Vehículo ingresado no existe en el sistema.");
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                return;
+            }
+            entregaEncontrada.AsignarRepartidorVehiculo(repartidorEncontrado, vehiculoEncontrado);
+            Console.WriteLine();
+            Console.WriteLine("Presione cualquier tecla para continuar.");
+            Console.ReadKey();
+        }
+        static void CambiarEstadoEntrega()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("+==================================+");
+            Console.WriteLine("|     Cambiar Estado de Entrega   |");
+            Console.WriteLine("+==================================+");
+            Console.ResetColor();
+            Console.WriteLine();
+
+            if (entregas.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: No hay entregas registradas.");
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                return;
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Ingrese el código de la entrega: ");
+            string codigoEntregaIng = Console.ReadLine();
+            Console.WriteLine();
+            Entrega entregaEncontrada = BuscarEntregaPorCodigo(codigoEntregaIng);
+            if (entregaEncontrada == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: La entrega ingresada no existe.");
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                return;
+            }
+
+            Console.WriteLine("Seleccione el nuevo estado: ");
+            Console.WriteLine("[1] Recogida   [2] En ruta   [3] Entregada");
+            int opcionEstado;
+            bool valido = int.TryParse(Console.ReadLine(), out opcionEstado) && opcionEstado >= 1 && opcionEstado <= 3;
+            Console.WriteLine();
+            if (!valido)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: La opción ingresada no es válida.");
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                return;
+            }
+            EstadoEntrega nuevoEstado;
+            if (opcionEstado == 1)
+            {
+                nuevoEstado = EstadoEntrega.Recogida;
+            }
+            else if (opcionEstado == 2)
+            {
+                nuevoEstado = EstadoEntrega.EnRuta;
+            }
+            else
+            {
+                nuevoEstado = EstadoEntrega.Entregada;
+            }
+            entregaEncontrada.CambiarEstado(nuevoEstado);
+            Console.WriteLine();
+            Console.WriteLine("Presione cualquier tecla para continuar.");
+            Console.ReadKey();
+        }
+        static void CancelarEntrega()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("+==================================+");
+            Console.WriteLine("|         Cancelar Entrega        |");
+            Console.WriteLine("+==================================+");
+            Console.ResetColor();
+            Console.WriteLine();
+            if (entregas.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: No hay entregas registradas.");
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                return;
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Ingrese el código de la entrega a cancelar: ");
+            string codigoEntregaIng = Console.ReadLine();
+            Console.WriteLine();
+            Entrega entregaEncontrada = BuscarEntregaPorCodigo(codigoEntregaIng);
+            if (entregaEncontrada == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: La entrega ingresada no existe.");
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                return;
+            }
+
+            entregaEncontrada.Cancelar();
+            Console.WriteLine();
+            Console.WriteLine("Presione cualquier tecla para continuar.");
+            Console.ReadKey();
+        }
+        static void ReprogramarEntrega()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("+==================================+");
+            Console.WriteLine("|        Reprogramar Entrega      |");
+            Console.WriteLine("+==================================+");
+            Console.ResetColor();
+            Console.WriteLine();
+            if (entregas.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: No hay entregas registradas.");
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                return;
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Ingrese el código de la entrega a reprogramar: ");
+            string codigoEntregaIng = Console.ReadLine();
+            Console.WriteLine();
+            Entrega entregaEncontrada = BuscarEntregaPorCodigo(codigoEntregaIng);
+            if (entregaEncontrada == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: La entrega ingresada no existe.");
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                return;
+            }
+            DateTime nuevaFecha;
+            bool valido;
+            do
+            {
+                Console.Write("Ingrese la nueva fecha (dd/mm/aaaa): ");
+                valido = DateTime.TryParse(Console.ReadLine(), out nuevaFecha);
+                Console.WriteLine();
+                if (!valido)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: Formato de fecha incorrecto.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                }
+            } while (!valido);
+            entregaEncontrada.Reprogramar(nuevaFecha);
+            Console.WriteLine();
+            Console.WriteLine("Presione cualquier tecla para continuar.");
+            Console.ReadKey();
+        }
+        static void ListarEntregas()
+        {
+            Console.Clear();
+            if (entregas.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("No hay entregas registradas.");
+                Console.ResetColor();
+            }
+            else
+            {
+                foreach (Entrega e in entregas)
+                {
+                    e.MostrarInformacion();
+                    Console.WriteLine();
+                }
+            }
+            Console.WriteLine("Presione ENTER para volver...");
+            Console.ReadLine();
+        }
+        static void GestionarIncidencias()
+        {
+            int opcion;
+            do
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("+==============================================+");
+                Console.WriteLine("|            Gestión de Incidencias            |");
+                Console.WriteLine("+==============================================+");
+                Console.ResetColor();
+                Console.WriteLine();
+                Console.WriteLine("+==================================================+");
+                Console.WriteLine("|  [1]  Registrar incidencia                       |");
+                Console.WriteLine("|  [2]  Resolver incidencia                        |");
+                Console.WriteLine("|  [3]  Listar incidencias de una entrega          |");
+                Console.WriteLine("|  [4]  Volver al menú principal                   |");
+                Console.WriteLine("+==================================================+");
+                Console.WriteLine();
+                Console.Write("Por favor, ingrese una opción: ");
+                if (!int.TryParse(Console.ReadLine(), out opcion))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error: Ingrese un número entero.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    continue;
+                }
+                switch (opcion)
+                {
+                    case 1:
+                        RegistrarIncidencia();
+                        break;
+                    case 2:
+                        ResolverIncidencia();
+                        break;
+                    case 3:
+                        ListarIncidenciasDeEntrega();
+                        break;
+                    case 4:
+                        break;
+                    default:
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Error: Opción inválida.");
+                        Console.ResetColor();
+                        Console.ReadLine();
+                        break;
+                }
+            } while (opcion != 4);
+        }
+        static void RegistrarIncidencia()
+        {
+            Console.Clear();
+            Incidencia nuevaIncidencia = null;
+            bool valido = true;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("+==================================+");
+            Console.WriteLine("|       Registrar Incidencia      |");
+            Console.WriteLine("+==================================+");
+            Console.ResetColor();
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Ingrese el código de la entrega afectada: ");
+            string codigoEntregaIng = Console.ReadLine();
+            Console.WriteLine();
+            Entrega entregaEncontrada = BuscarEntregaPorCodigo(codigoEntregaIng);
+            if (entregaEncontrada == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: La incidencia creada no corresponde a ninguna entrega, por favor verifique la asignación.");
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                return;
+            }
+            string codigoIng = "";
+            do
+            {
+                Console.Write("Por favor, ingrese el código de la incidencia: ");
+                codigoIng = Console.ReadLine();
+                Console.WriteLine();
+                if (string.IsNullOrWhiteSpace(codigoIng) || codigoIng.Length > 10)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: Código inválido.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = false;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Código ingresado correctamente.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = true;
+                }
+            } while (!valido);
+            nuevaIncidencia = new Incidencia(codigoIng);
+            int opcionTipo;
+            do
+            {
+                Console.WriteLine("Por favor, seleccione el tipo de incidencia: ");
+                Console.WriteLine("[1] Cliente ausente        [2] Dirección incorrecta");
+                Console.WriteLine("[3] Paquete dañado         [4] Vehículo averiado");
+                Console.WriteLine("[5] Retraso                [6] Problemas climáticos");
+                Console.WriteLine("[7] Rechazo de recepción");
+                valido = int.TryParse(Console.ReadLine(), out opcionTipo) && opcionTipo >= 1 && opcionTipo <= 7;
+                Console.WriteLine();
+                if (!valido)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: La opción ingresada no es válida.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Tipo de incidencia ingresado correctamente.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                }
+            } while (!valido);
+            nuevaIncidencia.Tipo = (TipoIncidencia)(opcionTipo - 1);
+            string descripcionIng;
+            do
+            {
+                Console.Write("Por favor, ingrese la descripción de la incidencia: ");
+                descripcionIng = Console.ReadLine();
+                Console.WriteLine();
+                if (string.IsNullOrWhiteSpace(descripcionIng))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: La descripción no puede estar vacía.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = false;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Descripción ingresada correctamente.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = true;
+                }
+            } while (!valido);
+            nuevaIncidencia.Descripcion = descripcionIng;
+            string accionIng;
+            do
+            {
+                Console.Write("Por favor, ingrese la acción tomada: ");
+                accionIng = Console.ReadLine();
+                Console.WriteLine();
+                if (string.IsNullOrWhiteSpace(accionIng))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: La acción tomada no puede estar vacía.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = false;
+                }
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write("Acción tomada ingresada correctamente.");
+                    Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
+                    valido = true;
+                }
+            } while (!valido);
+            nuevaIncidencia.AccionTomada = accionIng;
+            entregaEncontrada.RegistrarIncidencia(nuevaIncidencia);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.Write("Incidencia registrada correctamente.");
+            Console.ResetColor();
+            Console.WriteLine();
+            Console.Write("Presione cualquier tecla para continuar");
+            Console.ReadKey();
+        }
+        static void ResolverIncidencia()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("+==================================+");
+            Console.WriteLine("|        Resolver Incidencia      |");
+            Console.WriteLine("+==================================+");
+            Console.ResetColor();
+            Console.WriteLine();
+
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Ingrese el código de la entrega afectada: ");
+            string codigoEntregaIng = Console.ReadLine();
+            Console.WriteLine();
+            Entrega entregaEncontrada = BuscarEntregaPorCodigo(codigoEntregaIng);
+            if (entregaEncontrada == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: La entrega ingresada no existe.");
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                return;
+            }
+            Console.Write("Ingrese el código de la incidencia a resolver: ");
+            string codigoIncidenciaIng = Console.ReadLine();
+            Console.WriteLine();
+            Incidencia incidenciaEncontrada = null;
+            foreach (Incidencia i in entregaEncontrada.Incidencias)
+            {
+                if (i.Codigo == codigoIncidenciaIng)
+                {
+                    incidenciaEncontrada = i;
+                    break;
+                }
+            }
+            if (incidenciaEncontrada == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: La incidencia ingresada no existe para esta entrega.");
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                return;
+            }
+            incidenciaEncontrada.Resolver();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Incidencia marcada como resuelta.");
+            Console.ResetColor();
+            Console.WriteLine("Presione cualquier tecla para continuar.");
+            Console.ReadKey();
+        }
+        static void ListarIncidenciasDeEntrega()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Ingrese el código de la entrega: ");
+            string codigoEntregaIng = Console.ReadLine();
+            Console.WriteLine();
+            Entrega entregaEncontrada = BuscarEntregaPorCodigo(codigoEntregaIng);
+            if (entregaEncontrada == null)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: La entrega ingresada no existe.");
+                Console.ResetColor();
+                Console.WriteLine("Presione ENTER para volver...");
+                Console.ReadLine();
+                return;
+            }
+
+            if (entregaEncontrada.Incidencias.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("No hay incidencias registradas para esta entrega.");
+                Console.ResetColor();
+            }
+            else
+            {
+                foreach (Incidencia i in entregaEncontrada.Incidencias)
+                {
+                    i.MostrarInformacion();
+                    Console.WriteLine();
+                }
+            }
+            Console.WriteLine("Presione ENTER para volver...");
+            Console.ReadLine();
+        }
         static void Main(string[] args)
         {
             int opcion;
