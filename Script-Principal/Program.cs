@@ -14,9 +14,12 @@ namespace Script_Principal
         static void Menu()
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            Console.WriteLine("+==================================================+");
-            Console.WriteLine("|           Bienvenido GoXela Delivery             |");
-            Console.WriteLine("+==================================================+");
+            Console.WriteLine("+====================================================+");
+            Console.WriteLine("|             Bienvenido GoXela Delivery             |");
+            Console.WriteLine("|      ----------------------------------------      |");
+            Console.WriteLine("|               Delta & Rebuild Encoding             |");
+            Console.WriteLine("|                ::: [ D E R E N ] :::               |");
+            Console.WriteLine("+====================================================+");
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("+==================================================+");
