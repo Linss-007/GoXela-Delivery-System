@@ -21,7 +21,7 @@ namespace Script_Principal
             get { return cantSolicitudes; }
             set
             {
-                if (cantSolicitudes > 0)
+                if (value >= 0)
                 {
                     cantSolicitudes += value;
                 }
