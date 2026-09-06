@@ -49,6 +49,7 @@
     <Compile Include="Cliente.cs" />
     <Compile Include="Direccion.cs" />
     <Compile Include="Documentación.cs" />
+    <Compile Include="Entrega.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Motocicleta.cs" />
     <Compile Include="PaqueteEstandar.cs" />
