@@ -32,6 +32,7 @@ namespace Script_Principal
             Estado = EstadoEntrega.Solicitada;
             incidencias = new List<Incidencia>();
         }
+
         public string Codigo
         {
             get { return codigo; }
@@ -46,7 +47,7 @@ namespace Script_Principal
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Error: Código de entrega inválido.");
                     Console.ResetColor();
-                    Console.ReadKey();
+                    Console.ReadLine();
                     Console.WriteLine();
                 }
             }
@@ -56,6 +57,7 @@ namespace Script_Principal
             get { return fechaSolicitud; }
             set { fechaSolicitud = value; }
         }
+
         public Direccion DireccionOrigen
         {
             get { return direccionOrigen; }
@@ -70,7 +72,7 @@ namespace Script_Principal
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Error: Dirección de origen de la entrega inválida.");
                     Console.ResetColor();
-                    Console.ReadKey();
+                    Console.ReadLine();
                     Console.WriteLine();
                 }
             }
@@ -89,7 +91,7 @@ namespace Script_Principal
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Error: Dirección de destino de la entrega inválida.");
                     Console.ResetColor();
-                    Console.ReadKey();
+                    Console.ReadLine();
                     Console.WriteLine();
                 }
             }
@@ -107,9 +109,9 @@ namespace Script_Principal
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Error: La distancia estimada debe ser mayor a cero.");
-                    Console.ReadKey();
-                    Console.WriteLine();
                     Console.ResetColor();
+                    Console.ReadLine();
+                    Console.WriteLine();
                 }
             }
         }
@@ -152,7 +154,7 @@ namespace Script_Principal
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Error: El total calculado no puede ser negativo, revise los recargos y descuentos aplicados.");
                     Console.ResetColor();
-                    Console.ReadKey();
+                    Console.ReadLine();
                     Console.WriteLine();
                 }
             }
@@ -171,11 +173,12 @@ namespace Script_Principal
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Error: No hay cliente asignado a la entrega.");
                     Console.ResetColor();
-                    Console.ReadKey();
+                    Console.ReadLine();
                     Console.WriteLine();
                 }
             }
         }
+
         public Paquetes Paquete
         {
             get { return paquete; }
@@ -190,7 +193,7 @@ namespace Script_Principal
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Error: No hay un paquete asignado a la entrega.");
                     Console.ResetColor();
-                    Console.ReadKey();
+                    Console.ReadLine();
                     Console.WriteLine();
                 }
             }
@@ -212,47 +215,39 @@ namespace Script_Principal
         {
             get { return incidencias; }
         }
+
         public bool AsignarRepartidorVehiculo(Repartidor repartidorIng, Vehículos vehiculoIng)
         {
             return AsignarRepartidorVehiculo(repartidorIng, vehiculoIng, 0);
         }
-
         public bool AsignarRepartidorVehiculo(Repartidor repartidorIng, Vehículos vehiculoIng, double descuentoIng)
         {
             if (repartidorIng == null)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("Error: Repartidor ingresado no existe en el sistema.");
+                Console.WriteLine("Error: Repartidor ingresado no existe en el sistema.");
                 Console.ResetColor();
-                Console.ReadKey();
-                Console.WriteLine();
                 return false;
             }
             if (vehiculoIng == null)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("Error: Vehículo ingresado no existe en el sistema.");
+                Console.WriteLine("Error: Vehículo ingresado no existe en el sistema.");
                 Console.ResetColor();
-                Console.ReadKey();
-                Console.WriteLine();
                 return false;
             }
             if (!repartidorIng.EstaDisponible())
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write($"Error: El repartidor no se encuentra disponible actualmente (estado actual: {repartidorIng.EstadoDisponibilidad}).");
+                Console.WriteLine($"Error: El repartidor no se encuentra disponible actualmente (estado actual: {repartidorIng.EstadoDisponibilidad}).");
                 Console.ResetColor();
-                Console.ReadKey();
-                Console.WriteLine();
                 return false;
             }
             if (vehiculoIng.Estado != EstadoVehiculo.Disponible)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write($"Error: El vehículo no se encuentra disponible actualmente (estado actual: {vehiculoIng.Estado}).");
+                Console.WriteLine($"Error: El vehículo no se encuentra disponible actualmente (estado actual: {vehiculoIng.Estado}).");
                 Console.ResetColor();
-                Console.ReadKey();
-                Console.WriteLine();
                 return false;
             }
             if (!vehiculoIng.PuedeTransportar(Paquete))
@@ -260,7 +255,7 @@ namespace Script_Principal
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: La cantidad ingresada excede el peso permitido en el vehículo, o el tipo de paquete no puede enviarse en este tipo de vehículo.");
                 Console.ResetColor();
-                Console.ReadKey();
+                Console.ReadLine();
                 Console.WriteLine();
                 return false;
             }
@@ -272,10 +267,11 @@ namespace Script_Principal
             Estado = EstadoEntrega.Asignada;
 
             CalcularTarifa();
-
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("Repartidor y vehículo asignados correctamente.");
+            Console.Write("Repartidor y vehículo asignados correctamente.");
             Console.ResetColor();
+            Console.ReadLine();
+            Console.WriteLine();
             return true;
         }
         public double CalcularTarifa()
@@ -285,7 +281,7 @@ namespace Script_Principal
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: No se puede calcular la tarifa sin un vehículo y un paquete asignados.");
                 Console.ResetColor();
-                Console.ReadKey();
+                Console.ReadLine();
                 Console.WriteLine();
                 return 0;
             }
@@ -314,27 +310,39 @@ namespace Script_Principal
             if (Estado == EstadoEntrega.Entregada || Estado == EstadoEntrega.Cancelada)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: Esta entrega ya ha sido entregada o cancelada, no es posible su modificación.");
+                Console.Write("Error: Esta entrega ya ha sido entregada o cancelada, no es posible su modificación.");
                 Console.ResetColor();
+                Console.ReadLine();
+                Console.WriteLine();
                 return false;
             }
-            bool ordenValido = (Estado, nuevoEstado) switch
+            bool ordenValido = false;
+            if (Estado == EstadoEntrega.Solicitada && nuevoEstado == EstadoEntrega.Asignada)
             {
-                (EstadoEntrega.Solicitada, EstadoEntrega.Asignada) => true,
-                (EstadoEntrega.Asignada, EstadoEntrega.Recogida) => true,
-                (EstadoEntrega.Recogida, EstadoEntrega.EnRuta) => true,
-                (EstadoEntrega.EnRuta, EstadoEntrega.Entregada) => true,
-                (_, EstadoEntrega.Cancelada) => true,
-                (_, EstadoEntrega.Reprogramada) => true,
-                (_, EstadoEntrega.Incidencia) => true,
-                _ => false
-            };
+                ordenValido = true;
+            }
+            else if (Estado == EstadoEntrega.Asignada && nuevoEstado == EstadoEntrega.Recogida)
+            {
+                ordenValido = true;
+            }
+            else if (Estado == EstadoEntrega.Recogida && nuevoEstado == EstadoEntrega.EnRuta)
+            {
+                ordenValido = true;
+            }
+            else if (Estado == EstadoEntrega.EnRuta && nuevoEstado == EstadoEntrega.Entregada)
+            {
+                ordenValido = true;
+            }
+            else if (nuevoEstado == EstadoEntrega.Cancelada || nuevoEstado == EstadoEntrega.Reprogramada || nuevoEstado == EstadoEntrega.Incidencia)
+            {
+                ordenValido = true;
+            }
             if (!ordenValido)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: La entrega no puede ser marcada como entregada antes de enviarla o enviada después de entregarla.");
                 Console.ResetColor();
-                Console.ReadKey();
+                Console.ReadLine();
                 Console.WriteLine();
                 return false;
             }
@@ -367,7 +375,6 @@ namespace Script_Principal
             incidencias.Add(incidenciaIng);
             CambiarEstado(EstadoEntrega.Incidencia);
         }
-
         public bool Cancelar()
         {
             bool resultado = CambiarEstado(EstadoEntrega.Cancelada);
@@ -385,7 +392,7 @@ namespace Script_Principal
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: La fecha de reprogramación no puede ser anterior a la fecha actual.");
                 Console.ResetColor();
-                Console.ReadKey();
+                Console.ReadLine();
                 Console.WriteLine();
                 return false;
             }
