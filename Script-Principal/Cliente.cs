@@ -11,11 +11,10 @@ namespace Script_Principal
         private string correo;
         private string direccion;
         private int cantSolicitudes;
-        public Cliente(string codigoIng, string nombreIng, string numeroIng, string correoIng, string dirrecionIng, int cantSoliIng) : base(codigoIng, nombreIng, numeroIng)
+        public Cliente(string codigoIng, string nombreIng, string numeroIng, string correoIng, string dirrecionIng) : base(codigoIng, nombreIng, numeroIng)
         {
             Correo = correoIng;
             Direccion = dirrecionIng;
-            CantSolicitudes += cantSoliIng;
         }
         public int CantSolicitudes
         {
@@ -39,21 +38,22 @@ namespace Script_Principal
             get { return direccion; }
             set
             {
-                if (value.Length <= 50)
-                {
-                    direccion = value;
-                }
-                else if (string.IsNullOrWhiteSpace(value))
+                
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: La dirección no puede estar vacia, intente de nuevo.");
                     Console.ResetColor();
                 }
-                else
+                else if (value.Length > 50)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: La dirección excede el largo dispoible, intente de nuevo.");
                     Console.ResetColor();
+                }
+                else
+                {
+                    direccion = value;
                 }
             }
         }
@@ -62,11 +62,7 @@ namespace Script_Principal
             get { return correo; }
             set
             {
-                if (value.Length <= 30 && value.Contains('@'))
-                {
-                    correo = value;
-                }
-                else if (string.IsNullOrWhiteSpace(value))
+                if (string.IsNullOrWhiteSpace(value))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El correo no pude estar vacio, intente de nuevo.");
@@ -79,20 +75,24 @@ namespace Script_Principal
                     Console.WriteLine("Error: El correo no tiene @, intente de nuevo.");
                     Console.ResetColor();
                 }
-                else
+                else if(value.Length > 30)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El correo excede el largo disponible, intente de nuevo");
                     Console.ResetColor();
+                }
+                else
+                {
+                    correo = value;
                 }
             }
         }
         public override void ConsultarInfo()
         {
             base.ConsultarInfo();
-            Console.WriteLine("| Correo: " + correo);
-            Console.WriteLine("| Dirección: " + direccion);
-            Console.WriteLine("| Cantidad de solicitudes realizadas: " + cantSolicitudes);
+            Console.WriteLine($"| Correo: {Correo}");
+            Console.WriteLine($"| Dirección: {Direccion}");
+            Console.WriteLine($"| Cantidad de solicitudes realizadas: {CantSolicitudes}");
         }
         public override void Actualizar(int opcion)
         {
