@@ -33,6 +33,258 @@ namespace Script_Principal
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("Ingrese el índice de la acción que desea realizar: ");
         }
+        static void GestionRepartidores()
+        {
+            int opcion;
+            do
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("+===============================================+");
+                Console.WriteLine("|            Gestión de Repartidores           |");
+                Console.WriteLine("+===============================================+\n");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("+===============================================+");
+                Console.WriteLine("| [1] Registrar repartidor.                    |");
+                Console.WriteLine("| [2] Mostrar información de repartidores.     |");
+                Console.WriteLine("| [3] Actualizar información de un repartidor. |");
+                Console.WriteLine("| [4] Volver al menú principal.                |");
+                Console.WriteLine("+===============================================+\n");
+                Console.WriteLine("Por favor ingrese una opción.");
+                if (!int.TryParse(Console.ReadLine(), out opcion))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error: La opción ingresada no es un numero.");
+                    Console.ResetColor();
+                    Console.WriteLine("Presione una tecla para continuar.");
+                    Console.ReadKey();
+                    continue;
+                }
+                switch (opcion)
+                {
+                    case 1:
+                        RegistrarRepartidor();
+                        break;
+                    case 2:
+                        int cont = 1;
+                        if (Usuarios.OfType<Repartidor>().Count() == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Error: No existen repartidores guardados");
+                            Console.ResetColor();
+                        }
+                        else
+                        {
+                            foreach (Repartidor repartidor in Usuarios.OfType<Repartidor>())
+                            {
+                                Console.WriteLine($"Repartidor {cont}");
+                                Console.WriteLine("+===========================================+");
+                                repartidor.ConsultarInfo();
+                                Console.WriteLine("+===========================================+");
+                                cont++;
+                            }
+                        }
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("Presione cualquier tecla para continuar.");
+                        Console.ReadKey();
+                        break;
+                    case 3:
+                        bool repartidorEncontrado = false;
+                        int posRepartidor = 0;
+                        if (Usuarios.OfType<Repartidor>().Count() == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Error: No existen repartidores guardados");
+                            Console.ResetColor();
+                            Console.WriteLine("Presione una tecla para continuar.");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Ingrese el código del repartidor a actualizar la información");
+                            string codigoActu = Console.ReadLine();
+                            foreach (Repartidor repartidor in Usuarios.OfType<Repartidor>())
+                            {
+                                if (repartidor.Codigo == codigoActu)
+                                {
+                                    repartidorEncontrado = true;
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine("Repartidor encontrado");
+                                    Console.ResetColor();
+                                    posRepartidor = Usuarios.IndexOf(repartidor);
+                                    break;
+                                }
+                            }
+                            if (repartidorEncontrado == false)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Error: El repartidor no existe.");
+                                Console.ResetColor();
+                                Console.WriteLine("Presione una tecla para continuar.");
+                                Console.ReadKey();
+                            }
+                            else
+                            {
+                                do
+                                {
+                                    Console.Clear();
+                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                    Console.WriteLine("+================================================+");
+                                    Console.WriteLine("|              Actualizar Repartidor            |");
+                                    Console.WriteLine("+================================================+\n");
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
+                                    Console.WriteLine("+================================================+");
+                                    Console.WriteLine("| [1] Actualizar nombre.                        |");
+                                    Console.WriteLine("| [2] Actualizar número.                        |");
+                                    Console.WriteLine("| [3] Actualizar tipo de licencia.              |");
+                                    Console.WriteLine("| [4] Actualizar número de licencia.            |");
+                                    Console.WriteLine("| [5] Actualizar estado de disponibilidad.      |");
+                                    Console.WriteLine("| [6] No actualizar nada.                       |");
+                                    Console.WriteLine("+================================================+");
+                                    Console.WriteLine("Por favor ingrese una opción.");
+                                    if (!int.TryParse(Console.ReadLine(), out opcion) || opcion < 1 || opcion > 6)
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine("Error: La opción ingresada no es válida.");
+                                        Console.ResetColor();
+                                        Console.ForegroundColor = ConsoleColor.Yellow;
+                                        Console.WriteLine("Presione una tecla para continuar.");
+                                        Console.ReadKey();
+                                        continue;
+                                    }
+                                    Usuarios[posRepartidor].Actualizar(opcion);
+                                } while (opcion != 6);
+                            }
+                        }
+                        break;
+                    case 4:
+                        break;
+                }
+            } while (opcion != 4);
+        }
+        static void RegistrarRepartidor()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("+===========================================+");
+            Console.WriteLine("|            Registrar Repartidor           |");
+            Console.WriteLine("+===========================================+\n");
+            Console.ResetColor();
+        MalCodigo:
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Ingrese el código del repartidor.");
+            string codigoIng = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(codigoIng))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El código no puede ir vacío.");
+                Console.ResetColor();
+                goto MalCodigo;
+            }
+            else if (codigoIng.Length > 10)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: Código inválido.");
+                Console.ResetColor();
+                goto MalCodigo;
+            }
+            else if (Usuarios.OfType<Repartidor>().Any(r => r.Codigo == codigoIng))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El código ingresado ya existe.");
+                Console.ResetColor();
+                goto MalCodigo;
+            }
+        MalNombre:
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Ingrese el nombre del repartidor.");
+            string nombreIng = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(nombreIng))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El nombre no puede ir vacío.");
+                Console.ResetColor();
+                goto MalNombre;
+            }
+            else if (nombreIng.Length > 50)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El nombre esta fuera del rango establecido.");
+                Console.ResetColor();
+                goto MalNombre;
+            }
+        MalNumero:
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Ingrese el numero del repartidor.");
+            string numeroIng = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(numeroIng))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El número de teléfono no puede estar vácio");
+                Console.ResetColor();
+                goto MalNumero;
+            }
+            else if (numeroIng.Length != 8)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El número de teléfono debe tener 8 dígitos.");
+                Console.ResetColor();
+                goto MalNumero;
+            }
+            else if (!int.TryParse(numeroIng, out int num) == true)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El número de teléfono no debe contener letras");
+                Console.ResetColor();
+                goto MalNumero;
+            }
+        MalTipoLicencia:
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Ingrese el tipo de licencia del repartidor.");
+            Console.WriteLine("[1] C   [2] B   [3] A   [4] M");
+            string tipoLicenciaStr = Console.ReadLine();
+            if (!int.TryParse(tipoLicenciaStr, out int tipoLicenciaOpc) || tipoLicenciaOpc < 1 || tipoLicenciaOpc > 4)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: La opción ingresada no es válida.");
+                Console.ResetColor();
+                goto MalTipoLicencia;
+            }
+            Tipolicencia tipoLicenciaIng = (Tipolicencia)(tipoLicenciaOpc - 1);
+        MalNumLicencia:
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Ingrese el número de licencia del repartidor (13 dígitos).");
+            string numLicenciaIng = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(numLicenciaIng))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El número de licencia no puede ir vacío.");
+                Console.ResetColor();
+                goto MalNumLicencia;
+            }
+            else if (numLicenciaIng.Length != 13 || !long.TryParse(numLicenciaIng, out long _))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El número de licencia debe tener 13 dígitos numéricos.");
+                Console.ResetColor();
+                goto MalNumLicencia;
+            }
+            else if (Usuarios.OfType<Repartidor>().Any(r => r.NumLicencia == numLicenciaIng))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El número de licencia ingresado ya existe.");
+                Console.ResetColor();
+                goto MalNumLicencia;
+            }
+            Repartidor repartidor = new Repartidor(codigoIng, nombreIng, numeroIng, tipoLicenciaIng, numLicenciaIng, EstadoRepartidor.Disponible);
+            Usuarios.Add(repartidor);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Repartidor creado exitosamente.");
+            Console.ResetColor();
+            Console.WriteLine("Presione cualquier tecla para continuar");
+            Console.ReadKey();
+        }
         static void GestionClientes()
         {
             int opcion;
@@ -1066,9 +1318,8 @@ namespace Script_Principal
                     case 2:
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-
+                        GestionRepartidores();
                         Console.ForegroundColor = ConsoleColor.White;
-                        Console.ReadLine();
                         break;
                     case 3:
                         Console.Clear();
