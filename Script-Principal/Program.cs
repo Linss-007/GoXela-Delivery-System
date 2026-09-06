@@ -1356,6 +1356,175 @@ namespace Script_Principal
             }
             return suma;
         }
+        static void MostrarReportes()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("+================================+");
+            Console.WriteLine("|            Reportes            |");
+            Console.WriteLine("+================================+");
+            Console.ResetColor();
+            Console.WriteLine();
+            if (entregas.Count == 0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("No hay entregas registradas para generar este reporte.");
+                Console.ResetColor();
+                Console.WriteLine();
+                Console.WriteLine("Presione ENTER para volver...");
+                Console.ReadLine();
+                return;
+            }
+            int entregasActivas = 0;
+            int entregasFinalizadas = 0;
+            int entregasCanceladas = 0;
+            int entregasConIncidencias = 0;
+            double totalIngresos = 0;
+            Entrega entregaMayorCosto = null;
+            foreach (Entrega e in entregas)
+            {
+                if (e.Estado == EstadoEntrega.Entregada)
+                {
+                    entregasFinalizadas++;
+                    totalIngresos += e.Total;
+                }
+                else if (e.Estado == EstadoEntrega.Cancelada)
+                {
+                    entregasCanceladas++;
+                }
+                else if (e.Estado == EstadoEntrega.Incidencia)
+                {
+                    entregasConIncidencias++;
+                }
+                else
+                {
+                    entregasActivas++;
+                }
+
+                if (e.Incidencias.Count > 0)
+                {
+                    entregasConIncidencias++;
+                }
+
+                if (entregaMayorCosto == null || e.Total > entregaMayorCosto.Total)
+                {
+                    entregaMayorCosto = e;
+                }
+            }
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("+===========================================+");
+            Console.WriteLine($"| Entregas activas: {entregasActivas}");
+            Console.WriteLine($"| Entregas finalizadas: {entregasFinalizadas}");
+            Console.WriteLine($"| Entregas canceladas: {entregasCanceladas}");
+            Console.WriteLine($"| Entregas con incidencias: {entregasConIncidencias}");
+            Console.WriteLine("+===========================================+");
+            Console.WriteLine();
+            int repartidoresDisponibles = 0;
+            Repartidor repartidorMasEntregas = null;
+            foreach (Repartidor r in Usuarios.OfType<Repartidor>())
+            {
+                if (r.EstaDisponible())
+                {
+                    repartidoresDisponibles++;
+                }
+                if (repartidorMasEntregas == null || r.CantEntregasRealizadas > repartidorMasEntregas.CantEntregasRealizadas)
+                {
+                    repartidorMasEntregas = r;
+                }
+            }
+            Console.WriteLine("+===========================================+");
+            Console.WriteLine($"| Repartidores disponibles: {repartidoresDisponibles}");
+            if (repartidorMasEntregas != null)
+            {
+                Console.WriteLine($"| Repartidor con más entregas: {repartidorMasEntregas.Nombre} ({repartidorMasEntregas.CantEntregasRealizadas} entregas)");
+            }
+            else
+            {
+                Console.WriteLine("| Repartidor con más entregas: No hay repartidores registrados.");
+            }
+            Console.WriteLine("+===========================================+");
+            Console.WriteLine();
+            Vehículos vehiculoMasUtilizado = null;
+            int mayorCantidadUsos = -1;
+            foreach (Vehículos v in vehiculos)
+            {
+                int usos = 0;
+                foreach (Entrega e in entregas)
+                {
+                    if (e.Vehiculo == v)
+                    {
+                        usos++;
+                    }
+                }
+                if (usos > mayorCantidadUsos)
+                {
+                    mayorCantidadUsos = usos;
+                    vehiculoMasUtilizado = v;
+                }
+            }
+            Console.WriteLine("+===========================================+");
+            if (vehiculoMasUtilizado != null && mayorCantidadUsos > 0)
+            {
+                Console.WriteLine($"| Vehículo más utilizado: {vehiculoMasUtilizado.Codigo} ({mayorCantidadUsos} entregas)");
+            }
+            else
+            {
+                Console.WriteLine("| Vehículo más utilizado: Ningún vehículo ha sido asignado todavía.");
+            }
+            Console.WriteLine("+===========================================+");
+            Console.WriteLine();
+            int documentos = 0;
+            int estandar = 0;
+            int fragiles = 0;
+            int refrigerados = 0;
+            foreach (Paquetes p in paquetes)
+            {
+                if (p is Documento)
+                {
+                    documentos++;
+                }
+                else if (p is PaqueteEstandar)
+                {
+                    estandar++;
+                }
+                else if (p is PaqueteFragil)
+                {
+                    fragiles++;
+                }
+                else if (p is ProductoRefrigerado)
+                {
+                    refrigerados++;
+                }
+            }
+            Console.WriteLine("+===========================================+");
+            Console.WriteLine("| Cantidad de paquetes por tipo:");
+            Console.WriteLine($"|   Documento: {documentos}");
+            Console.WriteLine($"|   Paquete estándar: {estandar}");
+            Console.WriteLine($"|   Paquete frágil: {fragiles}");
+            Console.WriteLine($"|   Producto refrigerado: {refrigerados}");
+            Console.WriteLine("+===========================================+");
+            Console.WriteLine();
+            Console.WriteLine("+===========================================+");
+            Console.WriteLine($"| Total de ingresos (entregas finalizadas): {totalIngresos}");
+            Console.WriteLine("+===========================================+");
+            Console.WriteLine();
+            Console.WriteLine("+===========================================+");
+            if (entregaMayorCosto != null)
+            {
+                Console.WriteLine($"| Entrega con mayor costo: {entregaMayorCosto.Codigo} (Total: {entregaMayorCosto.Total})");
+            }
+            else
+            {
+                Console.WriteLine("| Entrega con mayor costo: No hay entregas registradas.");
+            }
+            Console.WriteLine("+===========================================+");
+            Console.WriteLine();
+            Console.WriteLine($"Cantidad de paquetes registrados (calculado con recursividad): {ContarPaquetesRecursivo(0)}");
+            Console.WriteLine($"Suma total de pesos registrados (calculado con punteros): {SumarPesosConPunteros()} kg");
+            Console.WriteLine();
+            Console.WriteLine("Presione ENTER para volver...");
+            Console.ReadLine();
+        }
         static List<Entrega> entregas = new List<Entrega>();
         static void GestionarEntregas()
         {
@@ -1419,7 +1588,6 @@ namespace Script_Principal
                 }
             } while (opcion != 7);
         }
-
         static void CrearEntrega()
         {
             Console.Clear();
@@ -2253,56 +2421,31 @@ namespace Script_Principal
                 {
                     case 1:
                         Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                         GestionClientes();
-                        Console.ForegroundColor = ConsoleColor.White;
                         break;
                     case 2:
                         Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                         GestionRepartidores();
-                        Console.ForegroundColor = ConsoleColor.White;
                         break;
                     case 3:
                         Console.Clear();
                         GestionarVehiculos();
-                        Console.ReadLine();
                         break;
                     case 4:
                         Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                         GestionarPaquetes();
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.ReadLine();
                         break;
                     case 5:
                         Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.ReadLine();
+                        GestionarEntregas();
                         break;
                     case 6:
                         Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.ReadLine();
+                        GestionarIncidencias();
                         break;
                     case 7:
                         Console.Clear();
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                        Console.WriteLine("+================================+");
-                        Console.WriteLine("|            Reportes            |");
-                        Console.WriteLine("+================================+");
-                        Console.ResetColor();
-                        Console.WriteLine();
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.WriteLine($"Cantidad de paquetes registrados: {ContarPaquetesRecursivo(0)}");
-                        Console.WriteLine($"Suma total de pesos registrados: {SumarPesosConPunteros()} kg");
-                        Console.WriteLine();
-                        Console.WriteLine("Presione ENTER para volver...");
-                        Console.ReadLine();
+                        MostrarReportes();
                         break;
                     case 8:
                         Console.Clear();
