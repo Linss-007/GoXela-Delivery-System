@@ -10,6 +10,7 @@ namespace Script_Principal
     {
         static List<Vehículos> vehiculos = new List<Vehículos>();
         static List<Paquetes> paquetes = new List<Paquetes>();
+        static List<Usuario> Usuarios = new List<Usuario>();
         static void Menu()
         {
             Console.ForegroundColor = ConsoleColor.DarkYellow;
@@ -31,6 +32,255 @@ namespace Script_Principal
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write("Ingrese el índice de la acción que desea realizar: ");
+        }
+        static void GestionClientes()
+        {
+            int opcion;
+            do
+            {
+                Console.Clear();
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.WriteLine("+===========================================+");
+                Console.WriteLine("|            Gestión de Clientes            |");
+                Console.WriteLine("+===========================================+\n");
+                Console.ResetColor();
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("+===========================================+");
+                Console.WriteLine("| [1] Registrar cliente.                    |");
+                Console.WriteLine("| [2] Mostrar información de clientes.      |");
+                Console.WriteLine("| [3] Actualizar información de un cliente. |");
+                Console.WriteLine("| [4] Volver al menú principal.             |");
+                Console.WriteLine("+===========================================+\n");
+                Console.WriteLine("Por favor ingrese una opción.");
+                if (!int.TryParse(Console.ReadLine(), out opcion))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Error: La opción ingresada no es un numero.");
+                    Console.ResetColor();
+                    Console.WriteLine("Presione una tecla para continuar.");
+                    Console.ReadKey();
+                    continue;
+                }
+                switch (opcion)
+                {
+                    case 1:
+                        RegistrarCliente();
+                        break;
+                    case 2:
+                        int cont = 1;
+                        if (Usuarios.OfType<Cliente>().Count() == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Error: No existen clientes guardados");
+                            Console.ResetColor();
+                        }
+                        else
+                        {
+                            foreach (Cliente cliente in Usuarios)
+                            {
+                                Console.WriteLine($"Cliente {cont}");
+                                Console.WriteLine("+===========================================+");
+                                cliente.ConsultarInfo();
+                                Console.WriteLine("+===========================================+");
+                                cont++;
+                            }
+                        }
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.WriteLine("Presione cualquier tecla para continuar.");
+                        Console.ReadKey();
+                        break;
+                    case 3:
+                        bool clienteEncontrado = false;
+                        int posCliente = 0;
+                        if (Usuarios.OfType<Cliente>().Count() == 0)
+                        {
+                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.WriteLine("Error: No existen clientes guardados");
+                            Console.ResetColor();
+                            Console.WriteLine("Presione una tecla para continuar.");
+                            Console.ReadKey();
+                        }
+                        else
+                        {
+                            Console.WriteLine("Ingrese el código del cliente a actualizar la información");
+                            string codigoActu = Console.ReadLine();
+                            foreach (Cliente cliente in Usuarios)
+                            {
+                                if (cliente.Codigo == codigoActu)
+                                {
+                                    clienteEncontrado = true;
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    Console.WriteLine("Cliente encontrado");
+                                    Console.ResetColor();
+                                    posCliente = Usuarios.IndexOf(cliente);
+                                    break;
+                                }
+                            }
+                            if (clienteEncontrado == false)
+                            {
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.WriteLine("Error: El cliente no existe.");
+                                Console.ResetColor();
+                                Console.WriteLine("Presione una tecla para continuar.");
+                                Console.ReadKey();
+                            }
+                            else
+                            {
+                                do
+                                {
+                                    Console.Clear();
+                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                                    Console.WriteLine("+===========================================+");
+                                    Console.WriteLine("|            Actualizar Cliente             |");
+                                    Console.WriteLine("+===========================================+\n");
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
+                                    Console.WriteLine("+===========================================+");
+                                    Console.WriteLine("| [1] Actualizar nombre.                    |");
+                                    Console.WriteLine("| [2] Actualizar número.                    |");
+                                    Console.WriteLine("| [3] Actualizar córreo.                    |");
+                                    Console.WriteLine("| [4] Actualizar Dirección.                 |");
+                                    Console.WriteLine("| [5] No actualizar nada.                   |");
+                                    Console.WriteLine("+===========================================+");
+                                    Console.WriteLine("Por favor ingrese una opción.");
+                                    if (!int.TryParse(Console.ReadLine(), out opcion) || opcion < 1 || opcion > 5)
+                                    {
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine("Error: La opción ingresada no es válida.");
+                                        Console.ResetColor();
+                                        Console.ForegroundColor = ConsoleColor.Yellow;
+                                        Console.WriteLine("Presione una tecla para continuar.");
+                                        Console.ReadKey();
+                                        continue;
+                                    }
+                                    Usuarios[posCliente].Actualizar(opcion);
+                                } while (opcion != 5);
+                            }
+                        }
+                        break;
+                    case 4:
+                        break;
+                }
+            } while (opcion != 4);
+        }
+        static void RegistrarCliente()
+        {
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.WriteLine("+===========================================+");
+            Console.WriteLine("|             Registrar Cliente             |");
+            Console.WriteLine("+===========================================+\n");
+            Console.ResetColor();
+        MalCodigo:
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Ingrese el código del cliente.");
+            string codigoIng = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(codigoIng))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El código no puede ir vacío.");
+                Console.ResetColor();
+                goto MalCodigo;
+            }
+            else if(codigoIng.Length > 10)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: Código inválido.");
+                Console.ResetColor();
+                goto MalCodigo;
+            }
+        MalNombre:
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Ingrese el nombre del cliente.");
+            string nombreIng = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(nombreIng))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El nombre no puede ir vacío.");
+                Console.ResetColor();
+                goto MalNombre;
+            }
+            else if(nombreIng.Length > 50)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El nombre esta fuera del rango establecido.");
+                Console.ResetColor();
+                goto MalNombre;
+            }
+        MalNumero:
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Ingrese el numero del cliente.");
+            string numeroIng = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(numeroIng))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El número de teléfono no puede estar vácio");
+                Console.ResetColor();
+                goto MalNumero;
+            }
+            else if(numeroIng.Length != 8)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El número de teléfono debe tener 8 dígitos.");
+                Console.ResetColor();
+                goto MalNumero;
+            }
+            else if(!int.TryParse(numeroIng, out int num) == true)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El número de teléfono no debe contener letras");
+                Console.ResetColor();
+                goto MalNumero;
+            }
+        MalCorreo:
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Ingrese el correo electronico del cliente.");
+            string correoIng = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(correoIng))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El correo no pude estar vacio, intente de nuevo.");
+                Console.ResetColor();
+                goto MalCorreo;
+            }
+            else if (!correoIng.Contains('@'))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El correo no tiene @, intente de nuevo.");
+                Console.ResetColor();
+                goto MalCorreo;
+            }
+            else if (correoIng.Length > 30)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: El correo excede el largo disponible, intente de nuevo");
+                Console.ResetColor();
+                goto MalCorreo;
+            }
+        MalDireccion:
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.WriteLine("Ingrese la dirección del cliente.");
+            string direccionIng = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(direccionIng))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: La dirección no puede estar vacia, intente de nuevo.");
+                Console.ResetColor();
+                goto MalDireccion;
+            }
+            else if (direccionIng.Length > 50)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Error: La dirección excede el largo dispoible, intente de nuevo.");
+                Console.ResetColor();
+                goto MalDireccion;
+            }
+            Cliente cliente = new Cliente(codigoIng, nombreIng, numeroIng, correoIng, direccionIng);
+            Usuarios.Add(new Cliente(codigoIng, nombreIng, numeroIng, correoIng, direccionIng));
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("Cliente creado exitosamente.");
+            Console.ResetColor();
+            Console.WriteLine("Presione cualquier tecla para continuar");
+            Console.ReadKey();
         }
         static void GestionarVehiculos()
         {
@@ -810,9 +1060,8 @@ namespace Script_Principal
                     case 1:
                         Console.Clear();
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
-
+                        GestionClientes();
                         Console.ForegroundColor = ConsoleColor.White;
-                        Console.ReadLine();
                         break;
                     case 2:
                         Console.Clear();

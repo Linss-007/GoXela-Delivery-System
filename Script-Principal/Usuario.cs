@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Script_Principal
 {
-    class Usuario
+    abstract class Usuario
     {
         private string nombre;
         private string numero;
@@ -26,17 +26,17 @@ namespace Script_Principal
                 {
                     codigo = value;
                 }
-                else if(string.IsNullOrWhiteSpace(value))
+                else if (string.IsNullOrWhiteSpace(value))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: El código no puede ir vacío.");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ResetColor();
                 }
-                else 
+                else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: Código inválido.");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ResetColor();
                 }
             }
         }
@@ -88,10 +88,11 @@ namespace Script_Principal
         }
         public virtual void Actualizar(int opcion)
         {
-            switch(opcion)
+            switch (opcion)
             {
                 case 1:
                 MalNombreNuevo:
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("Ingrese el nombre nuevo: ");
                     string nombreNuevo = Console.ReadLine();
                     if (!string.IsNullOrWhiteSpace(nombreNuevo) && nombreNuevo.Length <= 50)
@@ -102,7 +103,7 @@ namespace Script_Principal
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Error: El nombre no puede ir vacío.");
-                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.ResetColor();
                         goto MalNombreNuevo;
                     }
                     else
@@ -112,9 +113,15 @@ namespace Script_Principal
                         Console.ForegroundColor = ConsoleColor.White;
                         goto MalNombreNuevo;
                     }
+                    Console.ForegroundColor= ConsoleColor.Green;
+                    Console.WriteLine("Nombre del cliente actualizado");
+                    Console.ResetColor();
+                    Console.WriteLine("Presione cualquier tecla para continuar.");
+                    Console.ReadKey();
                     break;
                 case 2:
                 MalNumeroNuevo:
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     Console.WriteLine("Ingrese el número nuevo: ");
                     string numeroNuevo = Console.ReadLine();
                     if (!string.IsNullOrWhiteSpace(numeroNuevo) && numeroNuevo.Length == 8 && int.TryParse(numeroNuevo, out int num) == true)
@@ -128,11 +135,11 @@ namespace Script_Principal
                         Console.ForegroundColor = ConsoleColor.White;
                         goto MalNumeroNuevo;
                     }
-                    break;
-                default:
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: La opción ingresada no existe, intente de nuevo");
-                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Número del cliente actualizado");
+                    Console.ResetColor();
+                    Console.WriteLine("Presione cualquier tecla para continuar.");
+                    Console.ReadKey();
                     break;
             }
         }
