@@ -108,6 +108,7 @@ namespace Script_Principal
                                     clienteEncontrado = true;
                                     Console.ForegroundColor= ConsoleColor.Green;
                                     Console.WriteLine("Cliente encontrado");
+                                    Console.ResetColor();
                                     posCliente = Usuarios.IndexOf(cliente);
                                     break;
                                 }
@@ -122,9 +123,12 @@ namespace Script_Principal
                             {
                                 do
                                 {
+                                    Console.Clear();
+                                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                                     Console.WriteLine("+===========================================+");
                                     Console.WriteLine("|            Actualizar Cliente             |");
                                     Console.WriteLine("+===========================================+\n");
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
                                     Console.WriteLine("+===========================================+");
                                     Console.WriteLine("| [1] Actualizar nombre.                    |");
                                     Console.WriteLine("| [2] Actualizar número.                    |");
@@ -133,17 +137,18 @@ namespace Script_Principal
                                     Console.WriteLine("| [5] No actualizar nada.                   |");
                                     Console.WriteLine("+===========================================+");
                                     Console.WriteLine("Por favor ingrese una opción.");
-                                    if (!int.TryParse(Console.ReadLine(), out opcion))
+                                    if (!int.TryParse(Console.ReadLine(), out opcion) || opcion < 1 || opcion > 5)
                                     {
                                         Console.ForegroundColor = ConsoleColor.Red;
                                         Console.WriteLine("Error: La opción ingresada no es un numero.");
                                         Console.ResetColor();
+                                        Console.ForegroundColor = ConsoleColor.Yellow;
                                         Console.WriteLine("Presione una tecla para continuar.");
                                         Console.ReadKey();
                                         continue;
                                     }
                                     Usuarios[posCliente].Actualizar(opcion);
-                                } while (opcion != 5);
+                                }while (opcion != 5);
                             }
                         }
                         break;

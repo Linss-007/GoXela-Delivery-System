@@ -172,11 +172,6 @@ namespace Script_Principal
                     }
                     Console.ResetColor();
                     break;
-                default:
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: La opción ingresada no existe, intente de nuevo");
-                    Console.ForegroundColor = ConsoleColor.White;
-                    break;
             }
         }
     }
