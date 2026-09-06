@@ -32,14 +32,18 @@ namespace Script_Principal
                 if (string.IsNullOrWhiteSpace(value))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: El número de licencia no puede ir vacío.");
+                    Console.Write("Error: El número de licencia no puede ir vacío.");
                     Console.ResetColor();
+                    Console.ReadKey();
+                    Console.ReadLine();
                 }
                 else if (value.Length != 13 || !long.TryParse(value, out long _))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: El número de licencia debe tener 13 dígitos numéricos.");
+                    Console.Write("Error: El número de licencia debe tener 13 dígitos numéricos.");
                     Console.ResetColor();
+                    Console.ReadKey();
+                    Console.ReadLine();
                 }
                 else
                 {
@@ -64,8 +68,10 @@ namespace Script_Principal
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: La cantidad de entregas no puede ser negativa.");
+                    Console.Write("Error: La cantidad de entregas no puede ser negativa.");
                     Console.ResetColor();
+                    Console.ReadKey();
+                    Console.ReadLine();
                 }
             }
         }
@@ -81,8 +87,10 @@ namespace Script_Principal
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Error: La calificación promedio debe estar entre 0 y 5.");
+                    Console.Write("Error: La calificación promedio debe estar entre 0 y 5.");
                     Console.ResetColor();
+                    Console.ReadKey();
+                    Console.ReadLine();
                 }
             }
         }
@@ -106,41 +114,50 @@ namespace Script_Principal
             {
                 case 3:
                 MalTipoLicencia:
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.ForegroundColor = ConsoleColor.White;
                     Console.WriteLine("Ingrese el tipo de licencia nuevo: ");
                     Console.WriteLine("[1] C   [2] B   [3] A   [4] M");
                     string tipoLicenciaNuevaStr = Console.ReadLine();
+                    Console.WriteLine();
                     if (!int.TryParse(tipoLicenciaNuevaStr, out int tipoLicenciaNueva) || tipoLicenciaNueva < 1 || tipoLicenciaNueva > 4)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Error: La opción ingresada no es válida.");
+                        Console.Write("Error: La opción ingresada no es válida.");
                         Console.ResetColor();
+                        Console.ReadKey();
+                        Console.ReadLine();
                         goto MalTipoLicencia;
                     }
                     TipoLicencia = (Tipolicencia)(tipoLicenciaNueva - 1);
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Tipo de licencia del repartidor actualizado");
+                    Console.WriteLine("Tipo de licencia del repartidor actualizado.");
                     Console.ResetColor();
+                    Console.WriteLine();
                     Console.WriteLine("Presione cualquier tecla para continuar.");
                     Console.ReadKey();
                     break;
                 case 4:
                 MalNumLicencia:
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine("Ingrese el número de licencia nuevo (13 dígitos): ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("Ingrese el número de licencia nuevo: ");
                     string nuevoNumLicencia = Console.ReadLine();
+                    Console.WriteLine();
                     if (string.IsNullOrWhiteSpace(nuevoNumLicencia))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Error: El número de licencia no puede ir vacío.");
+                        Console.Write("Error: El número de licencia no puede ir vacío.");
                         Console.ResetColor();
+                        Console.ReadKey();
+                        Console.ReadLine();
                         goto MalNumLicencia;
                     }
                     else if (nuevoNumLicencia.Length != 13 || !long.TryParse(nuevoNumLicencia, out long _))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Error: El número de licencia debe tener 13 dígitos numéricos.");
+                        Console.Write("Error: El número de licencia debe tener 13 dígitos numéricos.");
                         Console.ResetColor();
+                        Console.ReadKey();
+                        Console.ReadLine();
                         goto MalNumLicencia;
                     }
                     else
@@ -150,6 +167,7 @@ namespace Script_Principal
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Número de licencia del repartidor actualizado");
                     Console.ResetColor();
+                    Console.WriteLine();
                     Console.WriteLine("Presione cualquier tecla para continuar.");
                     Console.ReadKey();
                     break;
@@ -159,17 +177,21 @@ namespace Script_Principal
                     Console.WriteLine("Ingrese el nuevo estado de disponibilidad: ");
                     Console.WriteLine("[1] Disponible   [2] Asignado   [3] Fuera de servicio");
                     string estadoNuevoStr = Console.ReadLine();
+                    Console.WriteLine();
                     if (!int.TryParse(estadoNuevoStr, out int estadoNuevo) || estadoNuevo < 1 || estadoNuevo > 3)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Error: La opción ingresada no es válida.");
+                        Console.Write("Error: La opción ingresada no es válida.");
                         Console.ResetColor();
+                        Console.ReadKey();
+                        Console.ReadLine();
                         goto MalEstado;
                     }
                     EstadoDisponibilidad = (EstadoRepartidor)(estadoNuevo - 1);
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Estado de disponibilidad del repartidor actualizado");
+                    Console.WriteLine("Estado de disponibilidad del repartidor actualizado.");
                     Console.ResetColor();
+                    Console.WriteLine();
                     Console.WriteLine("Presione cualquier tecla para continuar.");
                     Console.ReadKey();
                     break;

@@ -92,9 +92,10 @@ namespace Script_Principal
             {
                 case 1:
                 MalNombreNuevo:
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine("Ingrese el nombre nuevo: ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("Ingrese el nombre nuevo: ");
                     string nombreNuevo = Console.ReadLine();
+                    Console.WriteLine();
                     if (!string.IsNullOrWhiteSpace(nombreNuevo) && nombreNuevo.Length <= 50)
                     {
                         nombre = nombreNuevo;
@@ -102,27 +103,32 @@ namespace Script_Principal
                     else if (string.IsNullOrWhiteSpace(nombreNuevo))
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Error: El nombre no puede ir vacío.");
+                        Console.Write("Error: El nombre no puede ir vacío.");
                         Console.ResetColor();
+                        Console.ReadLine();
+                        Console.WriteLine();
                         goto MalNombreNuevo;
                     }
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Error: El nombre esta fuera del rango establecido.");
+                        Console.Write("Error: El nombre esta fuera del rango establecido.");
                         Console.ForegroundColor = ConsoleColor.White;
+                        Console.ReadLine();
+                        Console.WriteLine();
                         goto MalNombreNuevo;
                     }
                     Console.ForegroundColor= ConsoleColor.Green;
-                    Console.WriteLine("Nombre del cliente actualizado");
+                    Console.WriteLine("Nombre del cliente actualizado.");
                     Console.ResetColor();
-                    Console.WriteLine("Presione cualquier tecla para continuar.");
+                    Console.WriteLine();
+                    Console.Write("Presione cualquier tecla para continuar.");
                     Console.ReadKey();
                     break;
                 case 2:
                 MalNumeroNuevo:
-                    Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    Console.WriteLine("Ingrese el número nuevo: ");
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.Write("Ingrese el número nuevo: ");
                     string numeroNuevo = Console.ReadLine();
                     if (!string.IsNullOrWhiteSpace(numeroNuevo) && numeroNuevo.Length == 8 && int.TryParse(numeroNuevo, out int num) == true)
                     {
@@ -131,13 +137,16 @@ namespace Script_Principal
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Error: El número de teléfono debe tener 8 dígitos.");
+                        Console.Write("Error: El número de teléfono debe tener 8 dígitos.");
+                        Console.ReadLine();
+                        Console.WriteLine();
                         Console.ForegroundColor = ConsoleColor.White;
                         goto MalNumeroNuevo;
                     }
                     Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Número del cliente actualizado");
+                    Console.WriteLine("Número del cliente actualizado.");
                     Console.ResetColor();
+                    Console.WriteLine();
                     Console.WriteLine("Presione cualquier tecla para continuar.");
                     Console.ReadKey();
                     break;

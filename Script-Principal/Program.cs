@@ -378,13 +378,14 @@ namespace Script_Principal
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Error: No existen clientes guardados");
                             Console.ResetColor();
-                            Console.WriteLine("Presione una tecla para continuar.");
+                            Console.Write("Presione una tecla para continuar.");
                             Console.ReadKey();
                         }
                         else
                         {
-                            Console.WriteLine("Ingrese el código del cliente a actualizar la información");
+                            Console.Write("Ingrese el código del cliente a actualizar la información: ");
                             string codigoActu = Console.ReadLine();
+                            Console.WriteLine();
                             foreach (Cliente cliente in Usuarios)
                             {
                                 if (cliente.Codigo == codigoActu)
@@ -400,8 +401,9 @@ namespace Script_Principal
                             if (clienteEncontrado == false)
                             {
                                 Console.ForegroundColor = ConsoleColor.Red;
-                                Console.WriteLine("Error: El cliente no existe.");
+                                Console.Write("Error: El cliente no existe.");
                                 Console.ResetColor();
+                                Console.WriteLine();
                                 Console.WriteLine("Presione una tecla para continuar.");
                                 Console.ReadKey();
                             }
