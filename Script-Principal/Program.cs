@@ -44,20 +44,20 @@ namespace Script_Principal
                 Console.WriteLine("|            Gestión de Repartidores           |");
                 Console.WriteLine("+===============================================+\n");
                 Console.ResetColor();
-                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("+===============================================+");
                 Console.WriteLine("| [1] Registrar repartidor.                    |");
                 Console.WriteLine("| [2] Mostrar información de repartidores.     |");
                 Console.WriteLine("| [3] Actualizar información de un repartidor. |");
                 Console.WriteLine("| [4] Volver al menú principal.                |");
                 Console.WriteLine("+===============================================+\n");
-                Console.WriteLine("Por favor ingrese una opción.");
+                Console.Write("Por favor ingrese una opción: ");
                 if (!int.TryParse(Console.ReadLine(), out opcion))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Error: La opción ingresada no es un numero.");
                     Console.ResetColor();
-                    Console.WriteLine("Presione una tecla para continuar.");
+                    Console.Write("Presione una tecla para continuar.");
                     Console.ReadKey();
                     continue;
                 }
@@ -171,103 +171,131 @@ namespace Script_Principal
             Console.WriteLine("|            Registrar Repartidor           |");
             Console.WriteLine("+===========================================+\n");
             Console.ResetColor();
+            Console.WriteLine();
         MalCodigo:
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Ingrese el código del repartidor.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Ingrese el código del repartidor: ");
             string codigoIng = Console.ReadLine();
+            Console.WriteLine();
             if (string.IsNullOrWhiteSpace(codigoIng))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El código no puede ir vacío.");
+                Console.Write("Error: El código no puede ir vacío.");
+                Console.ReadKey();
+                Console.WriteLine();
                 Console.ResetColor();
                 goto MalCodigo;
             }
             else if (codigoIng.Length > 10)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: Código inválido.");
+                Console.Write("Error: Código inválido.");
                 Console.ResetColor();
+                Console.ReadKey();
+                Console.WriteLine();
                 goto MalCodigo;
             }
             else if (Usuarios.OfType<Repartidor>().Any(r => r.Codigo == codigoIng))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El código ingresado ya existe.");
+                Console.Write("Error: El código ingresado ya existe.");
+                Console.ReadKey();
+                Console.WriteLine();
                 Console.ResetColor();
                 goto MalCodigo;
             }
         MalNombre:
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Ingrese el nombre del repartidor.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Ingrese el nombre del repartidor: ");
             string nombreIng = Console.ReadLine();
+            Console.WriteLine();
             if (string.IsNullOrWhiteSpace(nombreIng))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El nombre no puede ir vacío.");
+                Console.Write("Error: El nombre no puede ir vacío.");
                 Console.ResetColor();
+                Console.ReadKey();
+                Console.WriteLine();
                 goto MalNombre;
             }
             else if (nombreIng.Length > 50)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El nombre esta fuera del rango establecido.");
+                Console.Write("Error: El nombre esta fuera del rango establecido.");
+                Console.ReadKey();
+                Console.WriteLine();
                 Console.ResetColor();
                 goto MalNombre;
             }
         MalNumero:
-            Console.ForegroundColor = ConsoleColor.Yellow;
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Ingrese el numero del repartidor.");
             string numeroIng = Console.ReadLine();
+            Console.WriteLine();
             if (string.IsNullOrWhiteSpace(numeroIng))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El número de teléfono no puede estar vácio");
+                Console.Write("Error: El número de teléfono no puede estar vácio");
                 Console.ResetColor();
+                Console.ReadKey();
+                Console.WriteLine();
                 goto MalNumero;
             }
             else if (numeroIng.Length != 8)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El número de teléfono debe tener 8 dígitos.");
+                Console.Write("Error: El número de teléfono debe tener 8 dígitos.");
                 Console.ResetColor();
+                Console.ReadKey();
+                Console.WriteLine();
                 goto MalNumero;
             }
             else if (!int.TryParse(numeroIng, out int num) == true)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El número de teléfono no debe contener letras");
+                Console.Write("Error: El número de teléfono no debe contener letras");
                 Console.ResetColor();
+                Console.ReadKey();
+                Console.WriteLine();
                 goto MalNumero;
             }
         MalTipoLicencia:
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Ingrese el tipo de licencia del repartidor.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("Ingrese el tipo de licencia del repartidor:");
             Console.WriteLine("[1] C   [2] B   [3] A   [4] M");
             string tipoLicenciaStr = Console.ReadLine();
+            Console.WriteLine();
             if (!int.TryParse(tipoLicenciaStr, out int tipoLicenciaOpc) || tipoLicenciaOpc < 1 || tipoLicenciaOpc > 4)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: La opción ingresada no es válida.");
+                Console.Write("Error: La opción ingresada no es válida.");
                 Console.ResetColor();
+                Console.ReadKey();
+                Console.WriteLine();
                 goto MalTipoLicencia;
             }
             Tipolicencia tipoLicenciaIng = (Tipolicencia)(tipoLicenciaOpc - 1);
         MalNumLicencia:
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Ingrese el número de licencia del repartidor (13 dígitos).");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Ingrese el número de licencia del repartidor: ");
             string numLicenciaIng = Console.ReadLine();
+            Console.WriteLine();
             if (string.IsNullOrWhiteSpace(numLicenciaIng))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El número de licencia no puede ir vacío.");
+                Console.Write("Error: El número de licencia no puede ir vacío.");
                 Console.ResetColor();
+                Console.ReadKey();
+                Console.WriteLine();
                 goto MalNumLicencia;
             }
             else if (numLicenciaIng.Length != 13 || !long.TryParse(numLicenciaIng, out long _))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El número de licencia debe tener 13 dígitos numéricos.");
+                Console.Write("Error: El número de licencia debe tener 13 dígitos numéricos.");
                 Console.ResetColor();
+                Console.ReadKey();
+                Console.WriteLine();
                 goto MalNumLicencia;
             }
             else if (Usuarios.OfType<Repartidor>().Any(r => r.NumLicencia == numLicenciaIng))
@@ -282,7 +310,8 @@ namespace Script_Principal
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Repartidor creado exitosamente.");
             Console.ResetColor();
-            Console.WriteLine("Presione cualquier tecla para continuar");
+            Console.WriteLine();
+            Console.Write("Presione cualquier tecla para continuar");
             Console.ReadKey();
         }
         static void GestionClientes()
@@ -296,14 +325,14 @@ namespace Script_Principal
                 Console.WriteLine("|            Gestión de Clientes            |");
                 Console.WriteLine("+===========================================+\n");
                 Console.ResetColor();
-                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.WriteLine("+===========================================+");
                 Console.WriteLine("| [1] Registrar cliente.                    |");
                 Console.WriteLine("| [2] Mostrar información de clientes.      |");
                 Console.WriteLine("| [3] Actualizar información de un cliente. |");
                 Console.WriteLine("| [4] Volver al menú principal.             |");
                 Console.WriteLine("+===========================================+\n");
-                Console.WriteLine("Por favor ingrese una opción.");
+                Console.Write("Por favor ingrese una opción: ");
                 if (!int.TryParse(Console.ReadLine(), out opcion))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
@@ -423,106 +452,135 @@ namespace Script_Principal
             Console.WriteLine("+===========================================+\n");
             Console.ResetColor();
         MalCodigo:
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Ingrese el código del cliente.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Ingrese el código del cliente: ");
             string codigoIng = Console.ReadLine();
+            Console.WriteLine();
             if (string.IsNullOrWhiteSpace(codigoIng))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El código no puede ir vacío.");
+                Console.Write("Error: El código no puede ir vacío.");
+                Console.ReadLine();
+                Console.WriteLine();
                 Console.ResetColor();
                 goto MalCodigo;
             }
             else if(codigoIng.Length > 10)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: Código inválido.");
+                Console.Write("Error: Código inválido.");
+                Console.ReadLine();
+                Console.WriteLine();
                 Console.ResetColor();
                 goto MalCodigo;
             }
         MalNombre:
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Ingrese el nombre del cliente.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Ingrese el nombre del cliente: ");
             string nombreIng = Console.ReadLine();
+            Console.WriteLine();
             if (string.IsNullOrWhiteSpace(nombreIng))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El nombre no puede ir vacío.");
+                Console.Write("Error: El nombre no puede ir vacío.");
+                Console.ReadLine();
+                Console.WriteLine();
                 Console.ResetColor();
                 goto MalNombre;
             }
             else if(nombreIng.Length > 50)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El nombre esta fuera del rango establecido.");
+                Console.Write("Error: El nombre esta fuera del rango establecido.");
+                Console.ReadLine();
+                Console.WriteLine();
                 Console.ResetColor();
                 goto MalNombre;
             }
         MalNumero:
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Ingrese el numero del cliente.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Ingrese el numero del cliente: ");
             string numeroIng = Console.ReadLine();
+            Console.WriteLine();
             if (string.IsNullOrWhiteSpace(numeroIng))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El número de teléfono no puede estar vácio");
+                Console.Write("Error: El número de teléfono no puede estar vácio");
+                Console.ReadLine();
+                Console.WriteLine();
                 Console.ResetColor();
                 goto MalNumero;
             }
             else if(numeroIng.Length != 8)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El número de teléfono debe tener 8 dígitos.");
+                Console.Write("Error: El número de teléfono debe tener 8 dígitos.");
+                Console.ReadLine();
+                Console.WriteLine();
                 Console.ResetColor();
                 goto MalNumero;
             }
             else if(!int.TryParse(numeroIng, out int num) == true)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El número de teléfono no debe contener letras");
+                Console.Write("Error: El número de teléfono no debe contener letras");
+                Console.ReadLine();
+                Console.WriteLine();
                 Console.ResetColor();
                 goto MalNumero;
             }
         MalCorreo:
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Ingrese el correo electronico del cliente.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Ingrese el correo electronico del cliente: ");
             string correoIng = Console.ReadLine();
+            Console.WriteLine();
             if (string.IsNullOrWhiteSpace(correoIng))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El correo no pude estar vacio, intente de nuevo.");
+                Console.Write("Error: El correo no pude estar vacio, intente de nuevo.");
+                Console.ReadLine();
+                Console.WriteLine();
                 Console.ResetColor();
                 goto MalCorreo;
             }
             else if (!correoIng.Contains('@'))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El correo no tiene @, intente de nuevo.");
+                Console.Write("Error: El correo no tiene @, intente de nuevo.");
+                Console.ReadLine();
+                Console.WriteLine();
                 Console.ResetColor();
                 goto MalCorreo;
             }
             else if (correoIng.Length > 30)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: El correo excede el largo disponible, intente de nuevo");
+                Console.Write("Error: El correo excede el largo disponible, intente de nuevo");
+                Console.ReadLine();
+                Console.WriteLine();
                 Console.ResetColor();
                 goto MalCorreo;
             }
         MalDireccion:
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine("Ingrese la dirección del cliente.");
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Ingrese la dirección del cliente: ");
             string direccionIng = Console.ReadLine();
+            Console.WriteLine();
             if (string.IsNullOrWhiteSpace(direccionIng))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: La dirección no puede estar vacia, intente de nuevo.");
+                Console.Write("Error: La dirección no puede estar vacia, intente de nuevo.");
+                Console.ReadLine();
+                Console.WriteLine();
                 Console.ResetColor();
                 goto MalDireccion;
             }
             else if (direccionIng.Length > 50)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Error: La dirección excede el largo dispoible, intente de nuevo.");
+                Console.Write("Error: La dirección excede el largo dispoible, intente de nuevo.");
+                Console.ReadLine();
+                Console.WriteLine();
                 Console.ResetColor();
                 goto MalDireccion;
             }
@@ -531,7 +589,8 @@ namespace Script_Principal
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine("Cliente creado exitosamente.");
             Console.ResetColor();
-            Console.WriteLine("Presione cualquier tecla para continuar");
+            Console.WriteLine();
+            Console.Write("Presione cualquier tecla para continuar");
             Console.ReadKey();
         }
         static void GestionarVehiculos()
@@ -566,13 +625,13 @@ namespace Script_Principal
                 switch (opcion)
                 {
                     case 1:
-                        RegistrarVehiculo("automovil");
+                        RegistrarVehiculo("Automovil");
                         break;
                     case 2:
-                        RegistrarVehiculo("motocicleta");
+                        RegistrarVehiculo("Motocicleta");
                         break;
                     case 3:
-                        RegistrarVehiculo("bicicleta");
+                        RegistrarVehiculo("Bicicleta");
                         break;
                     case 4:
                         ListarVehiculos();
@@ -594,7 +653,7 @@ namespace Script_Principal
             Vehículos nuevoVehiculo = null;
             bool valido = true;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            if (tipo == "automovil" || tipo == "bicicleta")
+            if (tipo == "Automovil" || tipo == "Bicicleta")
             {
                 Console.WriteLine("+==================================+");
                 Console.WriteLine($"|      Registro de {tipo}       |");
@@ -733,15 +792,15 @@ namespace Script_Principal
                 }
             } while (!valido);
             double capacidadLimite;
-            if (tipo == "automovil")
+            if (tipo == "Automovil")
             {
                 nuevoVehiculo = new Automovil(codigoIng, placa, marca, modelo, EstadoVehiculo.Disponible);
             }
-            else if (tipo == "motocicleta")
+            else if (tipo == "Motocicleta")
             {
                 nuevoVehiculo = new Motocicleta(codigoIng, placa, marca, modelo, EstadoVehiculo.Disponible);
             }
-            else if (tipo == "bicicleta")
+            else if (tipo == "Bicicleta")
             {
                 do
                 {
@@ -847,7 +906,9 @@ namespace Script_Principal
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write($"{tipo} registrado correctamente.");
             Console.ResetColor();
-            Console.ReadLine();
+            Console.WriteLine();
+            Console.Write("Presione cualquier tecla para continuar");
+            Console.ReadKey();
         }
         static void ListarVehiculos()
         {
@@ -902,16 +963,16 @@ namespace Script_Principal
                 switch (opcion)
                 {
                     case 1:
-                        RegistrarPaquete("documento");
+                        RegistrarPaquete("Documento");
                         break;
                     case 2:
-                        RegistrarPaquete("estandar");
+                        RegistrarPaquete("Estandar");
                         break;
                     case 3:
-                        RegistrarPaquete("fragil");
+                        RegistrarPaquete("Fragil");
                         break;
                     case 4:
-                        RegistrarPaquete("refrigerado");
+                        RegistrarPaquete("Refrigerado");
                         break;
                     case 5:
                         ListarPaquetes();
@@ -933,7 +994,7 @@ namespace Script_Principal
             Paquetes nuevoPaquete = null;
             bool valido = true;
             Console.ForegroundColor = ConsoleColor.DarkYellow;
-            if (tipo == "documento")
+            if (tipo == "Documento")
             {
                 Console.WriteLine("+==================================+");
                 Console.WriteLine($"|      Registro de {tipo}       |");
@@ -941,7 +1002,7 @@ namespace Script_Principal
                 Console.ResetColor();
                 Console.WriteLine();
             }
-            else if (tipo == "estandar")
+            else if (tipo == "Estandar")
             {
                 Console.WriteLine("+==================================+");
                 Console.WriteLine($"|      Registro de {tipo}        |");
@@ -949,7 +1010,7 @@ namespace Script_Principal
                 Console.ResetColor();
                 Console.WriteLine();
             }
-            else if (tipo == "fragil")
+            else if (tipo == "Fragil")
             {
                 Console.WriteLine("+==================================+");
                 Console.WriteLine($"|      Registro de {tipo}          |");
@@ -1093,15 +1154,15 @@ namespace Script_Principal
                 }
             } while (!valido);
             double temperaturaRequerida;
-            if (tipo == "documento")
+            if (tipo == "Documento")
             {
                 nuevoPaquete = new Documento(codigoIng, descripcion, direccionOrigen, direccionDestino);
             }
-            else if (tipo == "estandar")
+            else if (tipo == "Estandar")
             {
                 nuevoPaquete = new PaqueteEstandar(codigoIng, descripcion, direccionOrigen, direccionDestino);
             }
-            else if (tipo == "fragil")
+            else if (tipo == "Fragil")
             {
                 string respuestaManejoEspecial;
                 do
@@ -1133,7 +1194,7 @@ namespace Script_Principal
                 nuevoPaquete = new PaqueteFragil(codigoIng, descripcion, direccionOrigen, direccionDestino);
                 ((PaqueteFragil)(nuevoPaquete)).RequiereManejoEspecial = requiereManejoEspecial;
             }
-            else if (tipo == "refrigerado")
+            else if (tipo == "Refrigerado")
             {
                 do
                 {
@@ -1238,7 +1299,9 @@ namespace Script_Principal
             Console.ForegroundColor = ConsoleColor.Green;
             Console.Write($"{tipo} registrado correctamente.");
             Console.ResetColor();
-            Console.ReadLine();
+            Console.WriteLine();
+            Console.Write("Presione cualquier tecla para continuar");
+            Console.ReadKey();
         }
         static void ListarPaquetes()
         {
