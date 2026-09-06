@@ -51,6 +51,7 @@
     <Compile Include="Documentación.cs" />
     <Compile Include="Entrega.cs" />
     <Compile Include="Enums.cs" />
+    <Compile Include="Incidencia.cs" />
     <Compile Include="Motocicleta.cs" />
     <Compile Include="PaqueteEstandar.cs" />
     <Compile Include="PaqueteFragil.cs" />
