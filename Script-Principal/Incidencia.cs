@@ -19,15 +19,11 @@ namespace Script_Principal
         private DateTime fecha;
         private EstadoIncidencia estado;
         private string accionTomada;
-
-        public Incidencia(string codigoIng, TipoIncidencia tipoIng, string descripcionIng, string accionTomadaIng)
+        public Incidencia(string codigoIng)
         {
             Codigo = codigoIng;
-            Tipo = tipoIng;
-            Descripcion = descripcionIng;
             Fecha = DateTime.Now;
             Estado = EstadoIncidencia.Abierta;
-            AccionTomada = accionTomadaIng;
         }
         public string Codigo
         {

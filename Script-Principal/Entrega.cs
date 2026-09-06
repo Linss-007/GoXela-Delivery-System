@@ -25,16 +25,10 @@ namespace Script_Principal
         private Vehículos vehiculo;
         private List<Incidencia> incidencias;
 
-        public Entrega(string codigoIng, Cliente clienteIng, Paquetes paqueteIng, Direccion direccionOrigenIng, Direccion direccionDestinoIng, double distanciaEstimadaIng, TipoServicio tipoServicioIng)
+        public Entrega(string codigoIng)
         {
             Codigo = codigoIng;
             FechaSolicitud = DateTime.Now;
-            Cliente = clienteIng;
-            Paquete = paqueteIng;
-            DireccionOrigen = direccionOrigenIng;
-            DireccionDestino = direccionDestinoIng;
-            DistanciaEstimada = distanciaEstimadaIng;
-            TipoServicio = tipoServicioIng;
             Estado = EstadoEntrega.Solicitada;
             incidencias = new List<Incidencia>();
         }
