@@ -189,6 +189,16 @@ namespace Script_Principal
                 Console.ResetColor();
                 goto MalCodigo;
             }
+            else if (!codigoIng.StartsWith("rep"))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("Error: El código debe empezar con rep");
+                Console.ResetColor();
+                Console.Write("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                Console.WriteLine();
+                goto MalCodigo;
+            }
             else if (codigoIng.Length > 10)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -470,6 +480,16 @@ namespace Script_Principal
                 Console.ResetColor();
                 goto MalCodigo;
             }
+            else if (!codigoIng.StartsWith("cli"))
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("Error: El código debe empezar con cli");
+                Console.ResetColor();
+                Console.Write("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                Console.WriteLine();
+                goto MalCodigo;
+            }
             else if(codigoIng.Length > 10)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -696,6 +716,16 @@ namespace Script_Principal
                     Console.Write("Error: Código inválido.");
                     Console.ResetColor();
                     Console.ReadLine();
+                    Console.WriteLine();
+                    valido = false;
+                }
+                else if (!codigoIng.StartsWith("vec"))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: El código debe empezar con vec");
+                    Console.ResetColor();
+                    Console.Write("Presione cualquier tecla para continuar.");
+                    Console.ReadKey();
                     Console.WriteLine();
                     valido = false;
                 }
@@ -1053,6 +1083,16 @@ namespace Script_Principal
                     Console.Write("Error: Código inválido.");
                     Console.ResetColor();
                     Console.ReadLine();
+                    Console.WriteLine();
+                    valido = false;
+                }
+                else if (!codigoIng.StartsWith("paq"))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: El código debe empezar con paq");
+                    Console.ResetColor();
+                    Console.Write("Presione cualquier tecla para continuar.");
+                    Console.ReadKey();
                     Console.WriteLine();
                     valido = false;
                 }
@@ -1637,6 +1677,16 @@ namespace Script_Principal
                     Console.WriteLine();
                     valido = false;
                 }
+                else if (!codigoIng.StartsWith("ent"))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: El código debe empezar con ent");
+                    Console.ResetColor();
+                    Console.Write("Presione cualquier tecla para continuar.");
+                    Console.ReadKey();
+                    Console.WriteLine();
+                    valido = false;
+                }
                 else
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -1740,9 +1790,9 @@ namespace Script_Principal
                 if (intentoOrigen.LongitudTotal() < 15 || intentoOrigen.LongitudTotal() > 50)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.Write("Error: La dirección de origen inválida.");
+                    Console.Write("Error: La dirección de origen  es inválida.");
                     Console.ResetColor();
-                    Console.ReadLine();
+                    Console.ReadKey();
                     Console.WriteLine();
                     valido = false;
                 }
@@ -1752,7 +1802,7 @@ namespace Script_Principal
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write("Dirección de origen ingresada correctamente.");
                     Console.ResetColor();
-                    Console.ReadLine();
+                    Console.ReadKey();
                     Console.WriteLine();
                     valido = true;
                 }
@@ -1776,7 +1826,7 @@ namespace Script_Principal
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Error: La dirección de destino inválida.");
                     Console.ResetColor();
-                    Console.ReadLine();
+                    Console.ReadKey();
                     Console.WriteLine();
                     valido = false;
                 }
@@ -1786,7 +1836,7 @@ namespace Script_Principal
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write("Dirección de destino ingresada correctamente.");
                     Console.ResetColor();
-                    Console.ReadLine();
+                    Console.ReadKey();
                     Console.WriteLine();
                     valido = true;
                 }
@@ -1804,7 +1854,7 @@ namespace Script_Principal
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Error: Tipo de dato incorrecto, por favor ingrese un número válido.");
                     Console.ResetColor();
-                    Console.ReadLine();
+                    Console.ReadKey();
                     Console.WriteLine();
                 }
                 else
@@ -2215,6 +2265,15 @@ namespace Script_Principal
                     Console.Write("Error: Código inválido.");
                     Console.ResetColor();
                     Console.ReadLine();
+                    Console.WriteLine();
+                    valido = false;
+                }
+                else if (!codigoIng.StartsWith("inc"))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("Error: El código debe empezar con inc");
+                    Console.ResetColor();
+                    Console.ReadKey();
                     Console.WriteLine();
                     valido = false;
                 }
