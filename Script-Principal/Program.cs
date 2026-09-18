@@ -240,6 +240,16 @@ namespace Script_Principal
                 Console.ResetColor();
                 goto MalNombre;
             }
+            else if (int.TryParse(nombreIng, out int numNombre) == true)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("Error: El nombre no puede ser númerico");
+                Console.WriteLine();
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                goto MalNombre;
+            }
         MalNumero:
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Ingrese el numero del repartidor.");
@@ -475,17 +485,18 @@ namespace Script_Principal
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: El código no puede ir vacío.");
-                Console.ReadLine();
                 Console.WriteLine();
                 Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
                 goto MalCodigo;
             }
             else if (!codigoIng.StartsWith("cli"))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.Write("Error: El código debe empezar con cli");
+                Console.WriteLine("Error: El código debe empezar con cli");
                 Console.ResetColor();
-                Console.Write("Presione cualquier tecla para continuar.");
+                Console.WriteLine("Presione cualquier tecla para continuar.");
                 Console.ReadKey();
                 Console.WriteLine();
                 goto MalCodigo;
@@ -494,9 +505,10 @@ namespace Script_Principal
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: Código inválido.");
-                Console.ReadLine();
                 Console.WriteLine();
                 Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
                 goto MalCodigo;
             }
         MalNombre:
@@ -508,18 +520,30 @@ namespace Script_Principal
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: El nombre no puede ir vacío.");
-                Console.ReadLine();
                 Console.WriteLine();
                 Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
                 goto MalNombre;
             }
             else if(nombreIng.Length > 50)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: El nombre esta fuera del rango establecido.");
-                Console.ReadLine();
                 Console.WriteLine();
                 Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
+                goto MalNombre;
+            }
+            else if(int.TryParse(nombreIng, out int numNombre) == true)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write("Error: El nombre no puede ser númerico");
+                Console.WriteLine();
+                Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
                 goto MalNombre;
             }
         MalNumero:
@@ -531,27 +555,30 @@ namespace Script_Principal
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: El número de teléfono no puede estar vácio");
-                Console.ReadLine();
                 Console.WriteLine();
                 Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
                 goto MalNumero;
             }
             else if(numeroIng.Length != 8)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: El número de teléfono debe tener 8 dígitos.");
-                Console.ReadLine();
                 Console.WriteLine();
                 Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
                 goto MalNumero;
             }
-            else if(!int.TryParse(numeroIng, out int num) == true)
+            else if(!int.TryParse(numeroIng, out int num))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: El número de teléfono no debe contener letras");
-                Console.ReadLine();
                 Console.WriteLine();
                 Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
                 goto MalNumero;
             }
         MalCorreo:
@@ -563,27 +590,30 @@ namespace Script_Principal
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: El correo no pude estar vacio, intente de nuevo.");
-                Console.ReadLine();
                 Console.WriteLine();
                 Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
                 goto MalCorreo;
             }
             else if (!correoIng.Contains('@'))
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: El correo no tiene @, intente de nuevo.");
-                Console.ReadLine();
                 Console.WriteLine();
                 Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
                 goto MalCorreo;
             }
             else if (correoIng.Length > 30)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: El correo excede el largo disponible, intente de nuevo");
-                Console.ReadLine();
                 Console.WriteLine();
                 Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
                 goto MalCorreo;
             }
         MalDireccion:
@@ -595,18 +625,20 @@ namespace Script_Principal
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: La dirección no puede estar vacia, intente de nuevo.");
-                Console.ReadLine();
                 Console.WriteLine();
                 Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
                 goto MalDireccion;
             }
             else if (direccionIng.Length > 50)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write("Error: La dirección excede el largo dispoible, intente de nuevo.");
-                Console.ReadLine();
                 Console.WriteLine();
                 Console.ResetColor();
+                Console.WriteLine("Presione cualquier tecla para continuar.");
+                Console.ReadKey();
                 goto MalDireccion;
             }
             Cliente cliente = new Cliente(codigoIng, nombreIng, numeroIng, correoIng, direccionIng);
@@ -1787,7 +1819,7 @@ namespace Script_Principal
                 referenciaOrigen = Console.ReadLine();
                 Console.WriteLine();
                 Direccion intentoOrigen = new Direccion(calleOrigen, referenciaOrigen);
-                if (intentoOrigen.LongitudTotal() < 15 || intentoOrigen.LongitudTotal() > 50)
+                if (intentoOrigen.LongitudTotal() < 10 || intentoOrigen.LongitudTotal() > 50)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Error: La dirección de origen  es inválida.");
@@ -1821,7 +1853,7 @@ namespace Script_Principal
                 referenciaDestino = Console.ReadLine();
                 Console.WriteLine();
                 Direccion intentoDestino = new Direccion(calleDestino, referenciaDestino);
-                if (intentoDestino.LongitudTotal() < 15 || intentoDestino.LongitudTotal() > 50)
+                if (intentoDestino.LongitudTotal() < 10 || intentoDestino.LongitudTotal() > 50)
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("Error: La dirección de destino inválida.");
